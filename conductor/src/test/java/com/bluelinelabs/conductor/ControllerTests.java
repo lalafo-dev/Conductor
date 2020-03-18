@@ -103,7 +103,7 @@ public class ControllerTests {
 
         router.pushController(RouterTransaction.with(parent));
         parent.getChildRouter((ViewGroup)parent.getView().findViewById(TestController.VIEW_ID))
-                .setRoot(RouterTransaction.with(child));
+          .setRoot(RouterTransaction.with(child));
 
         CallState childExpectedCallState = new CallState(true);
         CallState parentExpectedCallState = new CallState(true);
@@ -160,7 +160,7 @@ public class ControllerTests {
 
         router.pushController(RouterTransaction.with(parent));
         parent.getChildRouter((ViewGroup)parent.getView().findViewById(TestController.VIEW_ID))
-                .setRoot(RouterTransaction.with(child));
+          .setRoot(RouterTransaction.with(child));
 
         CallState childExpectedCallState = new CallState(true);
         CallState parentExpectedCallState = new CallState(true);
@@ -224,7 +224,7 @@ public class ControllerTests {
 
         router.pushController(RouterTransaction.with(parent));
         parent.getChildRouter((ViewGroup)parent.getView().findViewById(TestController.VIEW_ID))
-                .setRoot(RouterTransaction.with(child));
+          .setRoot(RouterTransaction.with(child));
 
         CallState childExpectedCallState = new CallState(true);
         CallState parentExpectedCallState = new CallState(true);

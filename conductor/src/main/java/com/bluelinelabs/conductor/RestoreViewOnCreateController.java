@@ -1,11 +1,12 @@
 package com.bluelinelabs.conductor;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A simple controller subclass that changes the onCreateView signature to include a saved view state parameter.
@@ -18,7 +19,7 @@ abstract public class RestoreViewOnCreateController extends Controller {
      * Convenience constructor for use when no arguments are needed.
      */
     protected RestoreViewOnCreateController() {
-        super(null);
+        super((Bundle) null);
     }
 
     /**
@@ -28,6 +29,17 @@ abstract public class RestoreViewOnCreateController extends Controller {
      */
     protected RestoreViewOnCreateController(@Nullable Bundle args) {
         super(args);
+    }
+
+    /**
+     * Constructor that takes {@link ControllerArgs}  that need to be retained for {@link ControllerFactory}.
+     *
+     * @param controllerArgs any argument that have to be stored.
+     * @see ControllerArgs
+     * @see ControllerFactory#newInstance(ClassLoader, String, Object)
+     */
+    protected RestoreViewOnCreateController(@Nullable ControllerArgs controllerArgs) {
+        super(controllerArgs);
     }
 
     @Override @NonNull

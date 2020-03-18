@@ -1,14 +1,15 @@
 package com.bluelinelabs.conductor.changehandler;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerChangeHandler;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A {@link ControllerChangeHandler} that will instantly swap Views with no animations or transitions.
@@ -19,10 +20,10 @@ public class SimpleSwapChangeHandler extends ControllerChangeHandler implements 
 
     private boolean removesFromViewOnPush;
 
-    private boolean canceled;
+    protected boolean canceled;
 
-    private ViewGroup container;
-    private ControllerChangeCompletedListener changeListener;
+    protected ViewGroup container;
+    protected ControllerChangeCompletedListener changeListener;
 
     public SimpleSwapChangeHandler() {
         this(true);

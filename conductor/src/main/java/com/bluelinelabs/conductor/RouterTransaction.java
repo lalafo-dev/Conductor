@@ -1,10 +1,11 @@
 package com.bluelinelabs.conductor;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bluelinelabs.conductor.internal.TransactionIndexer;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Metadata used for adding {@link Controller}s to a {@link Router}.
@@ -33,12 +34,42 @@ public class RouterTransaction {
         return new RouterTransaction(controller);
     }
 
+    @NonNull
+    public static RouterTransaction with(@NonNull Class<? extends Controller> controllerClass, @Nullable Object arguments) {
+        final ControllerFactory controllerFactory = Conductor.getControllerFactory();
+        final String className = controllerClass.getName();
+        final ClassLoader classLoader = controllerClass.getClassLoader();
+
+        if (classLoader == null) {
+            final Exception parent = new NullPointerException("Default ClassLoader object is null");
+            throw new Controller.InstantiationException("Unable to instantiate controller " + className, parent);
+        }
+
+        Controller controller = controllerFactory.newInstance(classLoader, className, arguments);
+
+        return new RouterTransaction(controller);
+    }
+
     private RouterTransaction(@NonNull Controller controller) {
         this.controller = controller;
     }
 
     RouterTransaction(@NonNull Bundle bundle) {
-        controller = Controller.newInstance(bundle.getBundle(KEY_VIEW_CONTROLLER_BUNDLE));
+        final ControllerFactory controllerFactory = Conductor.getControllerFactory();
+
+        final Bundle controllerBundle = bundle.getBundle(KEY_VIEW_CONTROLLER_BUNDLE);
+        if (controllerBundle == null) {
+            throw new Controller.InstantiationException("Unable to instantiate controller from bundle: " +
+              "controller bundle is null. Make sure everything is OK.");
+        }
+
+        final ClassLoader callerClassLoader = getClass().getClassLoader();
+        if (callerClassLoader == null) {
+            final Exception parent = new NullPointerException("Default ClassLoader object is null");
+            throw new Controller.InstantiationException("Unable to instantiate controller from bundle " + controllerBundle, parent);
+        }
+
+        controller = Controller.newInstance(controllerFactory, callerClassLoader, controllerBundle);
         pushControllerChangeHandler = ControllerChangeHandler.fromBundle(bundle.getBundle(KEY_PUSH_TRANSITION));
         popControllerChangeHandler = ControllerChangeHandler.fromBundle(bundle.getBundle(KEY_POP_TRANSITION));
         tag = bundle.getString(KEY_TAG);

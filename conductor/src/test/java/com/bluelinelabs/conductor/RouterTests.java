@@ -1,6 +1,5 @@
 package com.bluelinelabs.conductor;
 
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,7 +19,8 @@ import org.robolectric.annotation.Config;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import androidx.annotation.NonNull;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -86,10 +86,10 @@ public class RouterTests {
         Controller controller2 = new TestController();
 
         router.pushController(RouterTransaction.with(controller1)
-                .tag(controller1Tag));
+          .tag(controller1Tag));
 
         router.pushController(RouterTransaction.with(controller2)
-                .tag(controller2Tag));
+          .tag(controller2Tag));
 
         assertEquals(controller1, router.getControllerWithTag(controller1Tag));
         assertEquals(controller2, router.getControllerWithTag(controller2Tag));
@@ -104,12 +104,12 @@ public class RouterTests {
         Controller controller2 = new TestController();
 
         router.pushController(RouterTransaction.with(controller1)
-                .tag(controller1Tag));
+          .tag(controller1Tag));
 
         assertEquals(1, router.getBackstackSize());
 
         router.pushController(RouterTransaction.with(controller2)
-                .tag(controller2Tag));
+          .tag(controller2Tag));
 
         assertEquals(2, router.getBackstackSize());
 
@@ -166,16 +166,16 @@ public class RouterTests {
         Controller controller4 = new TestController();
 
         router.pushController(RouterTransaction.with(controller1)
-                .tag(controller1Tag));
+          .tag(controller1Tag));
 
         router.pushController(RouterTransaction.with(controller2)
-                .tag(controller2Tag));
+          .tag(controller2Tag));
 
         router.pushController(RouterTransaction.with(controller3)
-                .tag(controller3Tag));
+          .tag(controller3Tag));
 
         router.pushController(RouterTransaction.with(controller4)
-                .tag(controller4Tag));
+          .tag(controller4Tag));
 
         router.popToTag(controller2Tag);
 
@@ -197,13 +197,13 @@ public class RouterTests {
         Controller controller3 = new TestController();
 
         router.pushController(RouterTransaction.with(controller1)
-                .tag(controller1Tag));
+          .tag(controller1Tag));
 
         router.pushController(RouterTransaction.with(controller2)
-                .tag(controller2Tag));
+          .tag(controller2Tag));
 
         router.pushController(RouterTransaction.with(controller3)
-                .tag(controller3Tag));
+          .tag(controller3Tag));
 
         router.popController(controller2);
 
@@ -258,7 +258,8 @@ public class RouterTests {
     @Test
     public void testNewSetBackstackWithNoRemoveViewOnPush() {
         RouterTransaction oldRootTransaction = RouterTransaction.with(new TestController());
-        RouterTransaction oldTopTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler.noRemoveViewOnPushHandler());
+        RouterTransaction oldTopTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler
+          .noRemoveViewOnPushHandler());
 
         router.setRoot(oldRootTransaction);
         router.pushController(oldTopTransaction);
@@ -268,8 +269,10 @@ public class RouterTests {
         assertTrue(oldTopTransaction.controller.isAttached());
 
         RouterTransaction rootTransaction = RouterTransaction.with(new TestController());
-        RouterTransaction middleTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler.noRemoveViewOnPushHandler());
-        RouterTransaction topTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler.noRemoveViewOnPushHandler());
+        RouterTransaction middleTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler
+          .noRemoveViewOnPushHandler());
+        RouterTransaction topTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler
+          .noRemoveViewOnPushHandler());
 
         List<RouterTransaction> backstack = Arrays.asList(rootTransaction, middleTransaction, topTransaction);
         router.setBackstack(backstack, null);
@@ -357,7 +360,8 @@ public class RouterTests {
     @Test
     public void testReplaceTopControllerWithNoRemoveViewOnPush() {
         RouterTransaction rootTransaction = RouterTransaction.with(new TestController());
-        RouterTransaction topTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler.noRemoveViewOnPushHandler());
+        RouterTransaction topTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler
+          .noRemoveViewOnPushHandler());
 
         List<RouterTransaction> backstack = Arrays.asList(rootTransaction, topTransaction);
         router.setBackstack(backstack, null);
@@ -371,7 +375,8 @@ public class RouterTests {
         assertEquals(rootTransaction, fetchedBackstack.get(0));
         assertEquals(topTransaction, fetchedBackstack.get(1));
 
-        RouterTransaction newTopTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler.noRemoveViewOnPushHandler());
+        RouterTransaction newTopTransaction = RouterTransaction.with(new TestController()).pushChangeHandler(MockChangeHandler
+          .noRemoveViewOnPushHandler());
         router.replaceTopController(newTopTransaction);
         newTopTransaction.pushChangeHandler().completeImmediately();
 
@@ -450,7 +455,7 @@ public class RouterTests {
 
         router.setRoot(RouterTransaction.with(controller1));
         router.pushController(RouterTransaction.with(controller2)
-                .pushChangeHandler(new FadeChangeHandler(false)));
+          .pushChangeHandler(new FadeChangeHandler(false)));
 
         assertEquals(2, router.container.getChildCount());
 

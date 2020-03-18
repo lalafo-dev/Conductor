@@ -3,12 +3,13 @@ package com.bluelinelabs.conductor.changehandler;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * An {@link AnimatorChangeHandler} that will slide the views left or right, depending on if it's a push or pop.

@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -13,8 +11,11 @@ import android.view.ViewTreeObserver;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
- * A base {@link ControllerChangeHandler} that facilitates using {@link android.animation.Animator}s to replace Controller Views
+ * A base {@link ControllerChangeHandler} that facilitates using {@link Animator}s to replace Controller Views
  */
 public abstract class AnimatorChangeHandler extends ControllerChangeHandler {
 

@@ -2,18 +2,22 @@ package com.bluelinelabs.conductor;
 
 import android.app.Activity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.internal.LifecycleHandler;
 import com.bluelinelabs.conductor.internal.ThreadUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+
 /**
  * Point of initial interaction with Conductor. Used to attach a {@link Router} to your Activity.
  */
 public final class Conductor {
+
+    @NonNull
+    private static ControllerFactory controllerFactory = new ControllerFactory();
 
     private Conductor() {}
 
@@ -39,6 +43,23 @@ public final class Conductor {
         router.rebindIfNeeded();
 
         return router;
+    }
+
+    @NonNull @UiThread
+    public static ControllerFactory getControllerFactory() {
+        ThreadUtils.ensureMainThread();
+        return controllerFactory;
+    }
+
+    @UiThread
+    public static void setControllerFactory(@NonNull ControllerFactory factory) {
+        ThreadUtils.ensureMainThread();
+
+        if (factory == null) {
+            return;
+        }
+
+        controllerFactory = factory;
     }
 
 }

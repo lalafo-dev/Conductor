@@ -2,8 +2,9 @@ package com.bluelinelabs.conductor.internal;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.NonNull;
 import android.util.SparseArray;
+
+import androidx.annotation.NonNull;
 
 public class StringSparseArrayParceler implements Parcelable {
 

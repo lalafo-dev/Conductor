@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.app.SharedElementCallback;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.transition.Transition;
 import android.transition.Transition.TransitionListener;
 import android.transition.TransitionSet;
@@ -21,6 +19,9 @@ import com.bluelinelabs.conductor.internal.TransitionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A TransitionChangeHandler that facilitates using different Transitions for the entering view, the exiting view,

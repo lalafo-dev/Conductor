@@ -1,10 +1,11 @@
 package com.bluelinelabs.conductor.util;
 
 import android.os.Bundle;
-import androidx.annotation.IdRes;
 
 import org.robolectric.Robolectric;
-import org.robolectric.android.controller.ActivityController;
+import org.robolectric.util.ActivityController;
+
+import androidx.annotation.IdRes;
 
 public class ActivityProxy {
 

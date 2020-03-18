@@ -1,11 +1,6 @@
 package com.bluelinelabs.conductor.demo.controllers;
 
 import android.graphics.PorterDuff.Mode;
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +9,16 @@ import android.widget.TextView;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
-import com.bluelinelabs.conductor.RouterTransaction;
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.bluelinelabs.conductor.demo.R;
 import com.bluelinelabs.conductor.demo.controllers.base.BaseController;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ExternalModulesController extends BaseController {
 
@@ -69,31 +66,6 @@ public class ExternalModulesController extends BaseController {
         return "External Module Demos";
     }
 
-    void onModelRowClick(DemoModel model) {
-        switch (model) {
-            case RX_LIFECYCLE:
-                getRouter().pushController(RouterTransaction.with(new RxLifecycleController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case RX_LIFECYCLE_2:
-                getRouter().pushController(RouterTransaction.with(new RxLifecycle2Controller())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case AUTODISPOSE:
-                getRouter().pushController(RouterTransaction.with(new AutodisposeController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case ARCH_LIFECYCLE:
-                getRouter().pushController(RouterTransaction.with(new ArchLifecycleController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-        }
-    }
-
     class AdditionalModulesAdapter extends RecyclerView.Adapter<AdditionalModulesAdapter.ViewHolder> {
 
         private final LayoutInflater inflater;
@@ -135,12 +107,6 @@ public class ExternalModulesController extends BaseController {
                 tvTitle.setText(item.title);
                 imgDot.getDrawable().setColorFilter(ContextCompat.getColor(getActivity(), item.color), Mode.SRC_ATOP);
             }
-
-            @OnClick(R.id.row_root)
-            void onRowClick() {
-                onModelRowClick(model);
-            }
-
         }
     }
 

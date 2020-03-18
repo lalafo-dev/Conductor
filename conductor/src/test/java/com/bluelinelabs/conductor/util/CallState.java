@@ -115,23 +115,23 @@ public class CallState implements Parcelable {
     @Override
     public String toString() {
         return "\nCallState{" +
-                "\n    changeStartCalls=" + changeStartCalls +
-                "\n    changeEndCalls=" + changeEndCalls +
-                "\n    createViewCalls=" + createViewCalls +
-                "\n    attachCalls=" + attachCalls +
-                "\n    destroyViewCalls=" + destroyViewCalls +
-                "\n    detachCalls=" + detachCalls +
-                "\n    destroyCalls=" + destroyCalls +
-                "\n    saveInstanceStateCalls=" + saveInstanceStateCalls +
-                "\n    restoreInstanceStateCalls=" + restoreInstanceStateCalls +
-                "\n    saveViewStateCalls=" + saveViewStateCalls +
-                "\n    restoreViewStateCalls=" + restoreViewStateCalls +
-                "\n    onActivityResultCalls=" + onActivityResultCalls +
-                "\n    onRequestPermissionsResultCalls=" + onRequestPermissionsResultCalls +
-                "\n    createOptionsMenuCalls=" + createOptionsMenuCalls +
-                "\n    contextAvailableCalls=" + contextAvailableCalls +
-                "\n    contextUnavailableCalls=" + contextUnavailableCalls +
-                "}\n";
+          "\n    changeStartCalls=" + changeStartCalls +
+          "\n    changeEndCalls=" + changeEndCalls +
+          "\n    createViewCalls=" + createViewCalls +
+          "\n    attachCalls=" + attachCalls +
+          "\n    destroyViewCalls=" + destroyViewCalls +
+          "\n    detachCalls=" + detachCalls +
+          "\n    destroyCalls=" + destroyCalls +
+          "\n    saveInstanceStateCalls=" + saveInstanceStateCalls +
+          "\n    restoreInstanceStateCalls=" + restoreInstanceStateCalls +
+          "\n    saveViewStateCalls=" + saveViewStateCalls +
+          "\n    restoreViewStateCalls=" + restoreViewStateCalls +
+          "\n    onActivityResultCalls=" + onActivityResultCalls +
+          "\n    onRequestPermissionsResultCalls=" + onRequestPermissionsResultCalls +
+          "\n    createOptionsMenuCalls=" + createOptionsMenuCalls +
+          "\n    contextAvailableCalls=" + contextAvailableCalls +
+          "\n    contextUnavailableCalls=" + contextUnavailableCalls +
+          "}\n";
     }
 
     public int describeContents() {

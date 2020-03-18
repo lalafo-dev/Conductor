@@ -1,6 +1,7 @@
 package com.bluelinelabs.conductor.internal;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 
 public class TransactionIndexer {

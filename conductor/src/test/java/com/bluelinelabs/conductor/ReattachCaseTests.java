@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import com.bluelinelabs.conductor.util.ActivityProxy;
 import com.bluelinelabs.conductor.util.MockChangeHandler;
 import com.bluelinelabs.conductor.util.TestController;
-import com.bluelinelabs.conductor.util.ViewUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,8 +42,8 @@ public class ReattachCaseTests {
         final TestController controllerB = new TestController();
 
         router.pushController(RouterTransaction.with(controllerA)
-            .pushChangeHandler(MockChangeHandler.defaultHandler())
-            .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertTrue(controllerA.isAttached());
         assertFalse(controllerB.isAttached());
@@ -55,8 +54,8 @@ public class ReattachCaseTests {
         assertFalse(controllerB.isAttached());
 
         router.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertFalse(controllerA.isAttached());
         assertTrue(controllerB.isAttached());
@@ -75,13 +74,13 @@ public class ReattachCaseTests {
         final Controller controllerB = new TestController();
 
         router.pushController(RouterTransaction.with(controllerA)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         Router childRouter = controllerA.getChildRouter((ViewGroup)controllerA.getView().findViewById(TestController.VIEW_ID));
         childRouter.pushController(RouterTransaction.with(childController)
-            .pushChangeHandler(MockChangeHandler.defaultHandler())
-            .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertTrue(controllerA.isAttached());
         assertTrue(childController.isAttached());
@@ -94,8 +93,8 @@ public class ReattachCaseTests {
         assertFalse(controllerB.isAttached());
 
         router.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertFalse(controllerA.isAttached());
         assertFalse(childController.isAttached());
@@ -117,22 +116,22 @@ public class ReattachCaseTests {
         final TestController childController = new TestController();
 
         router.pushController(RouterTransaction.with(controllerA)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertTrue(controllerA.isAttached());
         assertFalse(controllerB.isAttached());
         assertFalse(childController.isAttached());
 
         router.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         Router childRouter = controllerB.getChildRouter((ViewGroup)controllerB.getView().findViewById(TestController.VIEW_ID));
         childRouter.setPopsLastView(true);
         childRouter.pushController(RouterTransaction.with(childController)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertFalse(controllerA.isAttached());
         assertTrue(controllerB.isAttached());
@@ -166,22 +165,22 @@ public class ReattachCaseTests {
         TestController childController = new TestController();
 
         router.pushController(RouterTransaction.with(controllerA)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertTrue(controllerA.isAttached());
         assertFalse(controllerB.isAttached());
         assertFalse(childController.isAttached());
 
         router.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         Router childRouter = controllerB.getChildRouter((ViewGroup)controllerB.getView().findViewById(TestController.VIEW_ID));
         childRouter.setPopsLastView(true);
         childRouter.pushController(RouterTransaction.with(childController)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertFalse(controllerA.isAttached());
         assertTrue(controllerB.isAttached());
@@ -195,8 +194,8 @@ public class ReattachCaseTests {
 
         childController = new TestController();
         childRouter.pushController(RouterTransaction.with(childController)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertFalse(controllerA.isAttached());
         assertTrue(controllerB.isAttached());
@@ -213,8 +212,8 @@ public class ReattachCaseTests {
 
         childController = new TestController();
         childRouter.pushController(RouterTransaction.with(childController)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertFalse(controllerA.isAttached());
         assertTrue(controllerB.isAttached());

@@ -3,8 +3,6 @@ package com.bluelinelabs.conductor.util;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +13,9 @@ import android.widget.FrameLayout;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 
 public class TestController extends Controller {
 

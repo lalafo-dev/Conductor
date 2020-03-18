@@ -2,14 +2,15 @@ package com.bluelinelabs.conductor.changehandler;
 
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.internal.ClassUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A base {@link ControllerChangeHandler} that facilitates using {@link android.transition.Transition}s to replace Controller Views.
@@ -20,7 +21,7 @@ public class TransitionChangeHandlerCompat extends ControllerChangeHandler {
     private static final String KEY_CHANGE_HANDLER_CLASS = "TransitionChangeHandlerCompat.changeHandler.class";
     private static final String KEY_HANDLER_STATE = "TransitionChangeHandlerCompat.changeHandler.state";
 
-    @Nullable 
+    @Nullable
     private ControllerChangeHandler changeHandler;
 
     public TransitionChangeHandlerCompat() { }
@@ -98,19 +99,19 @@ public class TransitionChangeHandlerCompat extends ControllerChangeHandler {
 
     @Override
     public void completeImmediately() {
-      if (changeHandler != null) {
-        changeHandler.completeImmediately();
-      }
+        if (changeHandler != null) {
+            changeHandler.completeImmediately();
+        }
     }
 
     @Override
     public void setForceRemoveViewOnPush(boolean force) {
-      if (changeHandler != null) {
-        changeHandler.setForceRemoveViewOnPush(force);
-      }
+        if (changeHandler != null) {
+            changeHandler.setForceRemoveViewOnPush(force);
+        }
     }
 
-    @Override 
+    @Override
     protected void onEnd() {
         changeHandler = null;
     }

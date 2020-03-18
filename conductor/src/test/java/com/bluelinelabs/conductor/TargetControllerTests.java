@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(RobolectricTestRunner.class)
@@ -44,14 +43,14 @@ public class TargetControllerTests {
         assertNull(controllerB.getTargetController());
 
         router.pushController(RouterTransaction.with(controllerA)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         controllerB.setTargetController(controllerA);
 
         router.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertNull(controllerA.getTargetController());
         assertEquals(controllerA, controllerB.getTargetController());
@@ -66,15 +65,15 @@ public class TargetControllerTests {
         assertNull(controllerB.getTargetController());
 
         router.pushController(RouterTransaction.with(controllerA)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         controllerB.setTargetController(controllerA);
 
         Router childRouter = controllerA.getChildRouter((ViewGroup)controllerA.getView().findViewById(TestController.VIEW_ID));
         childRouter.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertNull(controllerA.getTargetController());
         assertEquals(controllerA, controllerB.getTargetController());
@@ -89,15 +88,15 @@ public class TargetControllerTests {
         assertNull(controllerB.getTargetController());
 
         router.pushController(RouterTransaction.with(controllerA)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         controllerA.setTargetController(controllerB);
 
         Router childRouter = controllerA.getChildRouter((ViewGroup)controllerA.getView().findViewById(TestController.VIEW_ID));
         childRouter.pushController(RouterTransaction.with(controllerB)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         assertNull(controllerB.getTargetController());
         assertEquals(controllerB, controllerA.getTargetController());

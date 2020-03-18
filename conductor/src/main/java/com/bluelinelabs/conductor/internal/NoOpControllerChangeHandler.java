@@ -1,11 +1,12 @@
 package com.bluelinelabs.conductor.internal;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class NoOpControllerChangeHandler extends ControllerChangeHandler {
 

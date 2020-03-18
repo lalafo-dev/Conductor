@@ -143,8 +143,8 @@ public class RouterChangeHandlerTests {
         MockChangeHandler setBackstackHandler = MockChangeHandler.taggedHandler("setBackstackHandler", true);
 
         List<RouterTransaction> newBackstack = Arrays.asList(
-                RouterTransaction.with(newController1),
-                RouterTransaction.with(newController2)
+          RouterTransaction.with(newController1),
+          RouterTransaction.with(newController2)
         );
 
         router.setBackstack(newBackstack, setBackstackHandler);
@@ -195,8 +195,8 @@ public class RouterChangeHandlerTests {
         MockChangeHandler setBackstackHandler = MockChangeHandler.taggedHandler("setBackstackHandler", true);
         MockChangeHandler pushController2Handler = MockChangeHandler.noRemoveViewOnPushHandler("pushController2");
         List<RouterTransaction> newBackstack = Arrays.asList(
-                RouterTransaction.with(newController1),
-                RouterTransaction.with(newController2).pushChangeHandler(pushController2Handler)
+          RouterTransaction.with(newController1),
+          RouterTransaction.with(newController2).pushChangeHandler(pushController2Handler)
         );
 
         router.setBackstack(newBackstack, setBackstackHandler);
@@ -250,8 +250,8 @@ public class RouterChangeHandlerTests {
         MockChangeHandler setBackstackHandler = MockChangeHandler.taggedHandler("setBackstackHandler", true);
 
         List<RouterTransaction> newBackstack = Arrays.asList(
-                initialTransaction,
-                RouterTransaction.with(newController)
+          initialTransaction,
+          RouterTransaction.with(newController)
         );
 
         router.setBackstack(newBackstack, setBackstackHandler);
@@ -287,8 +287,8 @@ public class RouterChangeHandlerTests {
 
         MockChangeHandler setBackstackHandler = MockChangeHandler.taggedHandler("setBackstackHandler", true);
         List<RouterTransaction> newBackstack = Arrays.asList(
-                initialTransaction2,
-                initialTransaction1
+          initialTransaction2,
+          initialTransaction1
         );
 
         router.setBackstack(newBackstack, setBackstackHandler);
@@ -328,8 +328,8 @@ public class RouterChangeHandlerTests {
 
         MockChangeHandler setBackstackHandler = MockChangeHandler.taggedHandler("setBackstackHandler", true);
         List<RouterTransaction> newBackstack = Arrays.asList(
-                initialTransaction2,
-                initialTransaction1
+          initialTransaction2,
+          initialTransaction1
         );
 
         router.setBackstack(newBackstack, setBackstackHandler);

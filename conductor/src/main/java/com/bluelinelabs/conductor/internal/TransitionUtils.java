@@ -3,8 +3,6 @@ package com.bluelinelabs.conductor.internal;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.transition.Transition;
 import android.transition.TransitionSet;
 import android.view.View;
@@ -12,6 +10,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class TransitionUtils {

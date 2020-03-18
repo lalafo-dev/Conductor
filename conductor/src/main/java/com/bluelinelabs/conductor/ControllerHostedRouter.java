@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler.ControllerChangeListener;
@@ -17,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-class ControllerHostedRouter extends Router {
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class ControllerHostedRouter extends Router {
 
     private final String KEY_HOST_ID = "ControllerHostedRouter.hostId";
     private final String KEY_TAG = "ControllerHostedRouter.tag";
@@ -35,7 +36,7 @@ class ControllerHostedRouter extends Router {
         this.tag = tag;
     }
 
-    final void setHost(@NonNull Controller controller, @NonNull ViewGroup container) {
+    public final void setHost(@NonNull Controller controller, @NonNull ViewGroup container) {
         if (hostController != controller || this.container != container) {
             removeHost();
 
@@ -54,7 +55,7 @@ class ControllerHostedRouter extends Router {
         }
     }
 
-    final void removeHost() {
+    public final void removeHost() {
         if (container != null && container instanceof ControllerChangeListener) {
             removeChangeListener((ControllerChangeListener)container);
         }
@@ -183,7 +184,7 @@ class ControllerHostedRouter extends Router {
     }
 
     @Override
-    boolean hasHost() {
+    public boolean hasHost() {
         return hostController != null;
     }
 
@@ -221,13 +222,15 @@ class ControllerHostedRouter extends Router {
     @Override @NonNull
     List<Router> getSiblingRouters() {
         List<Router> list = new ArrayList<>();
-        list.addAll(hostController.getChildRouters());
-        list.addAll(hostController.getRouter().getSiblingRouters());
+        if (hasHost()){
+            list.addAll(hostController.getChildRouters());
+            list.addAll(hostController.getRouter().getSiblingRouters());
+        }
         return list;
     }
 
     @Override @NonNull
-    Router getRootRouter() {
+    public Router getRootRouter() {
         if (hostController != null && hostController.getRouter() != null) {
             return hostController.getRouter().getRootRouter();
         } else {
@@ -242,7 +245,7 @@ class ControllerHostedRouter extends Router {
             String debugInfo;
             if (hostController != null) {
                 debugInfo = String.format(Locale.ENGLISH, "%s (attached? %b, destroyed? %b, parent: %s)",
-                        hostController.getClass().getSimpleName(), hostController.isAttached(), hostController.isBeingDestroyed, hostController.getParentController());
+                  hostController.getClass().getSimpleName(), hostController.isAttached(), hostController.isBeingDestroyed, hostController.getParentController());
             } else {
                 debugInfo = "null host controller";
             }

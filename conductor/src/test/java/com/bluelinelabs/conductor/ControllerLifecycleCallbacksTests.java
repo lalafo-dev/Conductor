@@ -2,7 +2,6 @@ package com.bluelinelabs.conductor;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +20,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -66,8 +67,8 @@ public class ControllerLifecycleCallbacksTests {
 
         assertCalls(expectedCallState, controller);
         router.pushController(RouterTransaction.with(controller)
-                .pushChangeHandler(getPushHandler(expectedCallState, controller))
-                .popChangeHandler(getPopHandler(expectedCallState, controller)));
+          .pushChangeHandler(getPushHandler(expectedCallState, controller))
+          .popChangeHandler(getPopHandler(expectedCallState, controller)));
 
         assertCalls(expectedCallState, controller);
 
@@ -87,7 +88,7 @@ public class ControllerLifecycleCallbacksTests {
 
         assertCalls(expectedCallState, controller);
         router.pushController(RouterTransaction.with(controller)
-                .pushChangeHandler(getPushHandler(expectedCallState, controller)));
+          .pushChangeHandler(getPushHandler(expectedCallState, controller)));
 
         assertCalls(expectedCallState, controller);
 
@@ -118,7 +119,7 @@ public class ControllerLifecycleCallbacksTests {
 
         assertCalls(expectedCallState, controller);
         router.pushController(RouterTransaction.with(controller)
-                .pushChangeHandler(getPushHandler(expectedCallState, controller)));
+          .pushChangeHandler(getPushHandler(expectedCallState, controller)));
 
         assertCalls(expectedCallState, controller);
 
@@ -150,8 +151,8 @@ public class ControllerLifecycleCallbacksTests {
 
         assertCalls(expectedCallState, controller);
         router.pushController(RouterTransaction.with(controller)
-                .pushChangeHandler(getPushHandler(expectedCallState, controller))
-                .tag("root"));
+          .pushChangeHandler(getPushHandler(expectedCallState, controller))
+          .tag("root"));
 
         assertCalls(expectedCallState, controller);
 
@@ -217,7 +218,7 @@ public class ControllerLifecycleCallbacksTests {
 
         assertCalls(expectedCallState, controller);
         router.pushController(RouterTransaction.with(controller)
-                .pushChangeHandler(getPushHandler(expectedCallState, controller)));
+          .pushChangeHandler(getPushHandler(expectedCallState, controller)));
 
         assertCalls(expectedCallState, controller);
 
@@ -433,8 +434,8 @@ public class ControllerLifecycleCallbacksTests {
         });
 
         router.pushController(RouterTransaction.with(testController)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         router.popController(testController);
 
@@ -449,7 +450,7 @@ public class ControllerLifecycleCallbacksTests {
     public void testChildLifecycle() {
         Controller parent = new TestController();
         router.pushController(RouterTransaction.with(parent)
-                .pushChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler()));
 
         TestController child = new TestController();
         attachLifecycleListener(child);
@@ -459,10 +460,10 @@ public class ControllerLifecycleCallbacksTests {
         assertCalls(expectedCallState, child);
 
         Router childRouter = parent.getChildRouter((ViewGroup)parent.getView().findViewById(TestController.VIEW_ID));
-            childRouter
-                .setRoot(RouterTransaction.with(child)
-                        .pushChangeHandler(getPushHandler(expectedCallState, child))
-                        .popChangeHandler(getPopHandler(expectedCallState, child)));
+        childRouter
+          .setRoot(RouterTransaction.with(child)
+            .pushChangeHandler(getPushHandler(expectedCallState, child))
+            .popChangeHandler(getPopHandler(expectedCallState, child)));
 
         assertCalls(expectedCallState, child);
 
@@ -475,8 +476,8 @@ public class ControllerLifecycleCallbacksTests {
     public void testChildLifecycle2() {
         Controller parent = new TestController();
         router.pushController(RouterTransaction.with(parent)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         TestController child = new TestController();
         attachLifecycleListener(child);
@@ -487,9 +488,9 @@ public class ControllerLifecycleCallbacksTests {
 
         Router childRouter = parent.getChildRouter((ViewGroup)parent.getView().findViewById(TestController.VIEW_ID));
         childRouter
-                .setRoot(RouterTransaction.with(child)
-                        .pushChangeHandler(getPushHandler(expectedCallState, child))
-                        .popChangeHandler(getPopHandler(expectedCallState, child)));
+          .setRoot(RouterTransaction.with(child)
+            .pushChangeHandler(getPushHandler(expectedCallState, child))
+            .popChangeHandler(getPopHandler(expectedCallState, child)));
 
         assertCalls(expectedCallState, child);
 
@@ -508,16 +509,16 @@ public class ControllerLifecycleCallbacksTests {
         Controller parent = new TestController();
         parent.setRetainViewMode(RetainViewMode.RETAIN_DETACH);
         router.pushController(RouterTransaction.with(parent)
-                .pushChangeHandler(MockChangeHandler.defaultHandler())
-                .popChangeHandler(MockChangeHandler.defaultHandler()));
+          .pushChangeHandler(MockChangeHandler.defaultHandler())
+          .popChangeHandler(MockChangeHandler.defaultHandler()));
 
         TestController child = new TestController();
         child.setRetainViewMode(RetainViewMode.RETAIN_DETACH);
         Router childRouter = parent.getChildRouter((ViewGroup)parent.getView().findViewById(TestController.VIEW_ID));
         childRouter
-                .setRoot(RouterTransaction.with(child)
-                        .pushChangeHandler(new SimpleSwapChangeHandler())
-                        .popChangeHandler(new SimpleSwapChangeHandler()));
+          .setRoot(RouterTransaction.with(child)
+            .pushChangeHandler(new SimpleSwapChangeHandler())
+            .popChangeHandler(new SimpleSwapChangeHandler()));
 
         assertTrue(parent.isAttached());
         assertTrue(child.isAttached());

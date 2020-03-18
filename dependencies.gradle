@@ -1,20 +1,74 @@
 ext {
-    minSdkVersion = 16
-    compileSdkVersion = 28
-    targetSdkVersion = 28
+    minSdkVersion = 19
+    compileSdkVersion = 29
+    targetSdkVersion = 29
+    buildToolsVersion = '29.0.3'
+
+    rxJava2Version = '2.2.18'
+    rxAndroid2Version = '2.1.1'
+    junitVersion = '4.12'
+    robolectricVersion = '3.0'
+    daggerVersion = '2.26'
+    okHttpVersion = '3.12.8'
+    retrofitVersion = '2.6.3'
+    glideVersion = '4.8.0'
+    moshiVersion = '1.9.2'
 
     butterknifeVersion = '10.1.0'
     picassoVersion = '2.5.2'
-    leakCanaryVersion = '1.5.4'
-    rxJavaVersion = '1.3.8'
-    rxJava2Version = '2.1.14'
-    rxLifecycleVersion = '1.0'
-    rxLifecycle2Version = '2.2.1'
-    autodisposeVersion = '1.0.0'
-    archComponentsVersion = '2.0.0'
-    junitVersion = '4.12'
-    roboelectricVersion = '3.8'
     lintVersion = '26.1.2'
+
+    rxJava2 = "io.reactivex.rxjava2:rxjava:$rxJava2Version"
+
+    glide = "com.github.bumptech.glide:glide:$glideVersion"
+    glideCompiler = "com.github.bumptech.glide:compiler:$glideVersion"
+    glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
+
+    dagger = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    supportV4 = "androidx.legacy:legacy-support-v4:1.0.0"
+    supportAnnotations = "androidx.annotation:annotation:1.1.0"
+    supportAppCompat = "androidx.appcompat:appcompat:1.0.2"
+    // supportAppCompatRes = "androidx.appcompat:appcompat-resources:1.1.0"
+
+    junit = "junit:junit:$junitVersion"
+    robolectric = "org.robolectric:robolectric:$robolectricVersion"
+    robolectricShadowsSupport = "org.robolectric:shadows-support-v4:$robolectricVersion"
+    // Workaround for https://github.com/robolectric/robolectric/issues/1932
+    khronosOpenGLApi = "org.khronos:opengl-api:gl1.1-android-2.1_r1"
+    mockito = 'org.mockito:mockito-core:3.2.4'
+
+    assertj = 'org.assertj:assertj-core:2.6.0'
+
+    // Assisted inject
+    assistedInjectVersion = '0.5.2'
+    assisted = [
+            'annotations': "com.squareup.inject:assisted-inject-annotations:$assistedInjectVersion",
+            'processor'  : "com.squareup.inject:assisted-inject-processor:$assistedInjectVersion",
+            'dagger2'    : [
+                    'annotations': "com.squareup.inject:assisted-inject-annotations-dagger2:$assistedInjectVersion",
+                    'processor'  : "com.squareup.inject:assisted-inject-processor-dagger2:$assistedInjectVersion",
+            ]
+
+    ]
+
+    // Codegen
+    versionIncap = '0.2'
+
+    autoService = 'com.google.auto.service:auto-service:1.0-rc4'
+    autoCommon = 'com.google.auto:auto-common:0.10'
+    javaPoet = 'com.squareup:javapoet:1.12.0'
+    incap = [
+            'runtime'  : "net.ltgt.gradle.incap:incap:$versionIncap",
+            'processor': "net.ltgt.gradle.incap:incap-processor:$versionIncap",
+    ]
+
+    // Codegen testing
+    truth = 'com.google.truth:truth:1.0.1'
+    compileTesting = 'com.google.testing.compile:compile-testing:0.18'
+    inject = 'javax.inject:javax.inject:1'
+    guava = 'com.google.guava:guava:28.2-jre'
 
     material = "com.google.android.material:material:1.0.0"
     androidxAnnotations = "androidx.annotation:annotation:1.0.0"
@@ -25,26 +79,9 @@ ext {
 
     picasso = "com.squareup.picasso:picasso:$picassoVersion"
 
+    leakCanaryVersion = '1.5.4'
     leakCanary = "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     leakCanaryNoOp = "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-
-    rxJava = "io.reactivex:rxjava:$rxJavaVersion"
-    rxJava2 = "io.reactivex.rxjava2:rxjava:$rxJava2Version"
-
-    rxLifecycle = "com.trello:rxlifecycle:$rxLifecycleVersion"
-    rxLifecycleAndroid = "com.trello:rxlifecycle-android:$rxLifecycleVersion"
-
-    rxLifecycle2 = "com.trello.rxlifecycle2:rxlifecycle:$rxLifecycle2Version"
-    rxLifecycleAndroid2 = "com.trello.rxlifecycle2:rxlifecycle-android:$rxLifecycle2Version"
-
-    autodispose = "com.uber.autodispose:autodispose:$autodisposeVersion"
-    autodisposeLifecycle = "com.uber.autodispose:autodispose-lifecycle:$autodisposeVersion"
-
-    archComponentsLifecycle = "androidx.lifecycle:lifecycle-runtime:$archComponentsVersion"
-    archComponentsLiveDataCore = "androidx.lifecycle:lifecycle-livedata-core:$archComponentsVersion"
-
-    junit = "junit:junit:$junitVersion"
-    roboelectric = "org.robolectric:robolectric:$roboelectricVersion"
 
     lintapi = "com.android.tools.lint:lint-api:$lintVersion"
     lintchecks = "com.android.tools.lint:lint-checks:$lintVersion"

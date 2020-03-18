@@ -1,11 +1,13 @@
 package com.bluelinelabs.conductor.internal;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 public class ClassUtils {
 
+    @Deprecated
     @Nullable @SuppressWarnings("unchecked")
     public static <T> Class<? extends T> classForName(@NonNull String className, boolean allowEmptyName) {
         if (allowEmptyName && TextUtils.isEmpty(className)) {
@@ -13,7 +15,7 @@ public class ClassUtils {
         }
 
         try {
-            return (Class<? extends T>)Class.forName(className);
+            return (Class<? extends T>) Class.forName(className);
         } catch (Exception e) {
             throw new RuntimeException("An exception occurred while finding class for name " + className + ". " + e.getMessage());
         }
