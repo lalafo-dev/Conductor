@@ -37,6 +37,8 @@ dependencies {
     api rootProject.ext.androidxAnnotations
 
     lintChecks project(path: ':conductor-lint', configuration: 'lintChecks')
+    lintChecks project(path: ':conductor-modules:codegen-lint', configuration: 'lintChecks')
+
 }
 
 task copyLintJar(type: Copy) {

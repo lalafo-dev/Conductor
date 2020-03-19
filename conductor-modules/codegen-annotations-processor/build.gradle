@@ -1,0 +1,33 @@
+import org.gradle.internal.jvm.Jvm
+
+apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'org.jetbrains.kotlin.kapt'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation project(':conductor-modules:codegen-annotations')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
+
+    api javaPoet
+
+    implementation autoCommon
+    implementation guava
+
+    compileOnly autoService
+    kapt autoService
+
+    compileOnly incap.runtime
+    kapt incap.processor
+
+    testImplementation junit
+    testImplementation truth
+    testImplementation compileTesting
+    testImplementation dagger
+    testImplementation inject
+    if (!Jvm.current().javaVersion.isJava9Compatible()) {
+        testImplementation files(Jvm.current().getToolsJar())
+    }
+}

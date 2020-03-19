@@ -1,5 +1,5 @@
 ext {
-    minSdkVersion = 19
+    minSdkVersion = 16
     compileSdkVersion = 29
     targetSdkVersion = 29
     buildToolsVersion = '29.0.3'
@@ -13,6 +13,9 @@ ext {
     retrofitVersion = '2.6.3'
     glideVersion = '4.8.0'
     moshiVersion = '1.9.2'
+    rxLifecycle2Version = '2.2.1'
+    autodisposeVersion = '1.0.0'
+    archComponentsVersion = '2.0.0'
 
     butterknifeVersion = '10.1.0'
     picassoVersion = '2.5.2'
@@ -31,6 +34,15 @@ ext {
     supportAnnotations = "androidx.annotation:annotation:1.1.0"
     supportAppCompat = "androidx.appcompat:appcompat:1.0.2"
     // supportAppCompatRes = "androidx.appcompat:appcompat-resources:1.1.0"
+
+    rxLifecycle2 = "com.trello.rxlifecycle2:rxlifecycle:$rxLifecycle2Version"
+    rxLifecycleAndroid2 = "com.trello.rxlifecycle2:rxlifecycle-android:$rxLifecycle2Version"
+
+    autodispose = "com.uber.autodispose:autodispose:$autodisposeVersion"
+    autodisposeLifecycle = "com.uber.autodispose:autodispose-lifecycle:$autodisposeVersion"
+
+    archComponentsLifecycle = "androidx.lifecycle:lifecycle-runtime:$archComponentsVersion"
+    archComponentsLiveDataCore = "androidx.lifecycle:lifecycle-livedata-core:$archComponentsVersion"
 
     junit = "junit:junit:$junitVersion"
     robolectric = "org.robolectric:robolectric:$robolectricVersion"

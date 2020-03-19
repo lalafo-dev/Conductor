@@ -1,0 +1,6 @@
+"1579371873437","0",":conductor-codegen:codegen-lint:compileKotlin","true","false","true","62","2020-01-18T18:24:33,437Z","","17072992256","Windows 10 10.0 amd64"
+"1579371873437","1",":conductor-codegen:codegen-lint:compileJava","true","false","true","2","2020-01-18T18:24:33,437Z","","17072992256","Windows 10 10.0 amd64"
+"1579371873437","2",":conductor-codegen:codegen-lint:processResources","true","false","true","2","2020-01-18T18:24:33,437Z","","17072992256","Windows 10 10.0 amd64"
+"1579371873437","3",":conductor-codegen:codegen-lint:classes","true","false","true","0","2020-01-18T18:24:33,437Z","","17072992256","Windows 10 10.0 amd64"
+"1579371873437","4",":conductor-codegen:codegen-lint:inspectClassesForKotlinIC","true","false","true","3","2020-01-18T18:24:33,437Z","","17072992256","Windows 10 10.0 amd64"
+"1579371873437","5",":conductor-codegen:codegen-lint:jar","true","false","true","7","2020-01-18T18:24:33,437Z","","17072992256","Windows 10 10.0 amd64"

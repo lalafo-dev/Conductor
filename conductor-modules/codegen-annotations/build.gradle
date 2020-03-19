@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'java-library'
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+}
+
+dependencies {
+    implementation supportAnnotations
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_6
+targetCompatibility = JavaVersion.VERSION_1_6

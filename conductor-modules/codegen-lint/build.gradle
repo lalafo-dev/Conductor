@@ -1,0 +1,17 @@
+apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+
+dependencies {
+    compileOnly "com.android.tools.lint:lint-api:26.6.1"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.lalafo.codegen.lint.ConductorCodegenIssueRegistry")
+    }
+}
