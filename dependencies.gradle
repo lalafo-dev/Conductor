@@ -7,7 +7,7 @@ ext {
     rxJava2Version = '2.2.18'
     rxAndroid2Version = '2.1.1'
     junitVersion = '4.12'
-    robolectricVersion = '3.0'
+    robolectricVersion = '4.3'
     daggerVersion = '2.26'
     okHttpVersion = '3.12.8'
     retrofitVersion = '2.6.3'

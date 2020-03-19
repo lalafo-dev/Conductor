@@ -3,7 +3,7 @@ package com.bluelinelabs.conductor.util;
 import android.os.Bundle;
 
 import org.robolectric.Robolectric;
-import org.robolectric.util.ActivityController;
+import org.robolectric.android.controller.ActivityController;
 
 import androidx.annotation.IdRes;
 
@@ -64,7 +64,7 @@ public class ActivityProxy {
 
     public ActivityProxy rotate() {
         getActivity().isChangingConfigurations = true;
-        getActivity().recreate();
+        activityController.configurationChange();
         return this;
     }
 
