@@ -1,6 +1,9 @@
 apply plugin: 'java-library'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
+configurations {
+    lintChecks
+}
 
 dependencies {
     compileOnly "com.android.tools.lint:lint-api:26.6.1"

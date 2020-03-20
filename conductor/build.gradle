@@ -21,6 +21,12 @@ android {
         versionName project.VERSION_NAME
         consumerProguardFiles 'proguard-rules.txt'
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 configurations {
