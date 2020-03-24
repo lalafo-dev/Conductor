@@ -3,6 +3,7 @@ import org.gradle.internal.jvm.Jvm
 apply plugin: 'java-library'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
+apply from: rootProject.file('gradle-mvn-push.gradle')
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -31,3 +32,5 @@ dependencies {
         testImplementation files(Jvm.current().getToolsJar())
     }
 }
+
+ext.artifactId = 'conductor-codegen-compiler'

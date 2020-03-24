@@ -14,8 +14,8 @@ ext {
     glideVersion = '4.8.0'
     moshiVersion = '1.9.2'
     rxLifecycle2Version = '2.2.1'
-    autodisposeVersion = '1.0.0'
-    archComponentsVersion = '2.0.0'
+    autodisposeVersion = '1.4.0'
+    archComponentsVersion = '2.2.0'
 
     butterknifeVersion = '10.1.0'
     picassoVersion = '2.5.2'

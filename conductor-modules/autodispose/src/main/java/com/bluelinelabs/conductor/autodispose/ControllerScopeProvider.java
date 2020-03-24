@@ -75,7 +75,7 @@ public class ControllerScopeProvider implements LifecycleScopeProvider<Controlle
     }
 
     @Override
-    public CompletableSource requestScope() throws Exception {
+    public CompletableSource requestScope() {
         return LifecycleScopes.resolveScopeFromLifecycle(this);
     }
 }
