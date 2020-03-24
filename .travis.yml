@@ -1,35 +1,46 @@
 language: android
+sudo: required
+dist: trusty
+jdk: oraclejdk8
+
+env:
+  global:
+    - ANDROID_API_LEVEL=29
+    - ANDROID_BUILD_TOOLS_VERSION=29.0.3
+    - ANDROID_ABI=armeabi-v7a
 
 android:
   components:
     - tools
-    - build-tools-28.0.3
-    - android-28
+    - platform-tools
+    - android-$ANDROID_API_LEVEL
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - extra-android-m2repository
   licenses:
-    - '.+'
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
-script:
-  - ./gradlew test
+before_install:
+  - touch $HOME/.android/repositories.cfg
+  - yes | sdkmanager "platforms;android-29"
+  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "build-tools;28.0.3"
+  - yes | sdkmanager "build-tools;29.0.3"
 
-jdk:
-  - oraclejdk8
-
-branches:
-  only:
-    - develop
-    - master
-
-after_success:
-  - .buildscript/deploy_snapshot.sh
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
-    - $HOME/.gradle
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
 
-sudo: false
+before_script:
+  - chmod +x gradlew
 
-env:
-  global:
-    - secure: Px0uj7aMtKUVZVBnoEjHrEHh4cwO2qKJrHHPvwBiDqhwLBaWQIVXYOy0njaYc5o8p96Fv7bMu7NZx/72vMu1+nmTKxgzrMIxvMW6kczBvJUpv6xd1NuC34x+5Xq5gBNOFvb8JarWStcKgIvnFqvBsRUeI1Hsz7Olb8HF+fEo1kShuP18ezSsBkXruw8JuGiU9x0kq4YhZ7vRvFnc3sJX2FL6heuvQsnUWrolUOsKRadNkCibo+Euuls7ExvbbAXN4LEO3rs0G2eBUBbi2wXvTMG9symtItEHTMPO7K+aQfNQnHsY91TYveH/IJM1u5p6OldsUSOUigzpDmpVYW94aLuJaYqc6Ibq3eUws+tv2didOHXZW5zOCFjldDFBIQFPA3fih/wK/JP0taQ0uIu1+2eifvuERarMkGsYlOFe5tJd10ipi+kK5vNxoRwS9kGv5WwP5fVPX2m5XbD2y1LnugCCcAumfNX7NyNBIRqTy7BP34O3EMLZpMxjwSLnUBnYd4V/0LEvoVmbYmrLhWwpojBJmdwe2QknrPuvRErxNujRA1uEVupbU5A6RW1BmrtzSahJYoROI+ayG7UTOSbFN8+DorER1SUXsrOFlawak8yWsoi6OIynTKucrFM3YcBdJ3Su5AIhfBAOASZa6CUa6sn6Zo8mHmDVGKeckvXnLCU=
-    - secure: 3Dj6roVTO2a9Z8lwlTGzJJ+QGeyIYSuQ/Z6YsYnW3wB9Mw36uWqw9rOmMNIGjjyAlER8bKgalHr90Pus87oaNaIlbEyvq+L+I0FVAwognViFjo/a2apCcq81THoKjT1l0sgGRzvLNDynQe1q2L0tOu21wtBhMLb7FKQYB9+oD3H+rcU63xD2tv3ToJz+j+dccZ9nrtgk0MQ1xAeMtEb4tdq3flKATKhIuDkp9chaDxx/ZGwyhdE0UP29UUyP5Np1QvpFAlAJIZloZPvde2e05fwxTh4rwUCetkfJknDK6WrGiq97WGRXJpfORNuwGn7jxDCtgxcAm9nGF8qmI/v78BhjJ857CfJBTLGv4QI0RszlhXyezJqqRYjCn9S4yx8UAOixVJfJfFNHLqD4MFn41b7j8J3HDJPxNt0t/qYhUMrgrZVosNOUqhwCyQTKDqtrpvmSUbhHpk2+fxZF1GEL5N540rA0OjLmFUUEDSvRQVaa/waeqXrRefOhsXIx20dHs93C6XDffjnxVMKlqtPab2MlHV/23QCuSa6eW+lKyOZ6ZkWLwwDsLbnuD0WJfJpiL1xaTdPJNIDb6kB/Bno4V1O4xrYncEOaA4Vr4amO8le9Q33/QeNrUZSXs/eye5t0f02wCzubuiEDVEeoR/qj5+5CNWv3AWr/f8AgXp80Pzw=
+script:
+  - ./gradlew clean build
+  - ./gradlew test
