@@ -83,6 +83,14 @@ afterEvaluate { project ->
             }
           }
         }
+
+        // Resolve dependencies to other modules
+        pom.whenConfigured { pom ->
+          pom.dependencies.findAll { dep -> dep.groupId == rootProject.name }.collect { dep ->
+            dep.groupId = pom.groupId = project.GROUP
+            dep.version = pom.version = project.VERSION_NAME
+          }
+        }
       }
     }
   }
@@ -127,6 +135,14 @@ afterEvaluate { project ->
               id POM_DEVELOPER_ID
               name POM_DEVELOPER_NAME
             }
+          }
+        }
+
+        // Resolve dependencies to other modules
+        pom.whenConfigured { pom ->
+          pom.dependencies.findAll { dep -> dep.groupId == rootProject.name }.collect { dep ->
+            dep.groupId = pom.groupId = project.GROUP
+            dep.version = pom.version = project.VERSION_NAME
           }
         }
       }
@@ -179,6 +195,14 @@ afterEvaluate { project ->
               id POM_DEVELOPER_ID
               name POM_DEVELOPER_NAME
             }
+          }
+        }
+
+        // Resolve dependencies to other modules
+        pom.whenConfigured { pom ->
+          pom.dependencies.findAll { dep -> dep.groupId == rootProject.name }.collect { dep ->
+            dep.groupId = pom.groupId = project.GROUP
+            dep.version = pom.version = project.VERSION_NAME
           }
         }
       }

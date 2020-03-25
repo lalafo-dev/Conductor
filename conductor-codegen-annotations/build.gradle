@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'java-library'
-apply from: rootProject.file('gradle-mvn-push.gradle')
 
 javadoc {
     source = sourceSets.main.allJava
@@ -15,3 +14,5 @@ sourceCompatibility = JavaVersion.VERSION_1_6
 targetCompatibility = JavaVersion.VERSION_1_6
 
 ext.artifactId = 'conductor-codegen-annotations'
+
+apply from: rootProject.file('gradle-mvn-push.gradle')
