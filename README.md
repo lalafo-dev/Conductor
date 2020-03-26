@@ -149,7 +149,7 @@ The community has provided several helpful modules to make developing apps with 
 
 ## License
 ```
-Copyright 2016 BlueLine Labs, Inc.
+Copyright (c) 2020 Lalafo.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
