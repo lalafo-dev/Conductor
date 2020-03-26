@@ -1,4 +1,4 @@
-[![Travis CI](https://travis-ci.org/lalafo-dev/Conductor.svg?branch=develop)](https://travis-ci.org/lalafo-dev/Conductor) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Conductor-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3361) [![Javadocs](http://javadoc.io/badge/com.bluelinelabs/conductor.svg)](http://javadoc.io/doc/com.bluelinelabs/conductor)
+[![Travis CI](https://travis-ci.org/lalafo-dev/Conductor.svg?branch=develop)](https://travis-ci.org/lalafo-dev/Conductor)  [ ![Download](https://api.bintray.com/packages/lalafo-dev/Conductor/com.lalafo.conductor/images/download.svg) ](https://bintray.com/lalafo-dev/Conductor/com.lalafo.conductor/_latestVersion)
 
 # Conductor
 
@@ -20,27 +20,29 @@ Conductor is architecture-agnostic and does not try to force any design decision
 ## Installation
 
 ```gradle
-implementation 'com.bluelinelabs:conductor:3.0.0-rc1'
+implementation 'com.lalafo.conductor:conductor:1.0.0-dev02'
 
-// If you want the components that go along with
-// Android's support libraries (currently just a PagerAdapter):
-implementation 'com.bluelinelabs:conductor-support:3.0.0-rc1'
-
-// If you want RxJava lifecycle support:
-implementation 'com.bluelinelabs:conductor-rxlifecycle:3.0.0-rc1'
+// If you want Conductor Dagger2 codegen support add
+// Annotations:
+implementation 'com.lalafo.conductor:conductor-codegen-annotations:1.0.0-dev02'
+// Annotations processor:
+annotationProcessor 'com.lalafo.conductor:conductor-codegen-compiler:1.0.0-dev02'
+// Or in case of using Kotlin
+kapt 'com.lalafo.conductor:conductor-codegen-compiler:1.0.0-dev02'
 
 // If you want RxJava2 lifecycle support:
-implementation 'com.bluelinelabs:conductor-rxlifecycle2:3.0.0-rc1'
+implementation 'com.lalafo.conductor:conductor-rxlifecycle2:1.0.0-dev02'
 
 // If you want RxJava2 Autodispose support:
-implementation 'com.bluelinelabs:conductor-autodispose:3.0.0-rc1'
+implementation 'com.lalafo.conductor:conductor-autodispose:1.0.0-dev02'
 
 // If you want Controllers that are Lifecycle-aware (architecture components):
-implementation 'com.bluelinelabs:conductor-archlifecycle:3.0.0-rc1'
+implementation 'com.lalafo.conductor:conductor-archlifecycle:1.0.0-dev02'
 ```
 
 **SNAPSHOT**
 
+***Work in progress***
 Just use `3.0.1-SNAPSHOT` as your version number in any of the dependencies above and add the url to the snapshot repository:
 
 ```gradle
@@ -119,6 +121,11 @@ The lifecycle of a Controller is significantly simpler to understand than that o
 ![Controller Lifecycle](docs/Controller%20Lifecycle.jpg)
 
 ## Advanced Topics
+### In project `ControllerFactory` usage
+***Work in progress***
+
+### Dagger2 Codegen
+***Work in progress***
 
 ### Retain View Modes
 `setRetainViewMode` can be called on a `Controller` with one of two values: `RELEASE_DETACH`, which will release the `Controller`'s view as soon as it is detached from the screen (saves memory), or `RETAIN_DETACH`, which will ensure that a `Controller` holds on to its view, even if it's not currently shown on the screen (good for views that are expensive to re-create).
@@ -129,7 +136,7 @@ The lifecycle of a Controller is significantly simpler to understand than that o
 ### Child Routers & Controllers
 `getChildRouter` can be called on a `Controller` in order to get a nested `Router` into which child `Controller`s can be pushed. This enables creating advanced layouts, such as Master/Detail.
 
-### RxJava Lifecycle
+### RxJava 2 Lifecycle
 If the AutoDispose dependency has been added, there is a `ControllerScopeProvider` available that can be used along with the standard [AutoDispose library](https://github.com/uber/AutoDispose).
 
 ## Community Projects

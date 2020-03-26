@@ -12,3 +12,7 @@ dependencies {
 
 sourceCompatibility = JavaVersion.VERSION_1_6
 targetCompatibility = JavaVersion.VERSION_1_6
+
+ext.artifactId = 'conductor-codegen-annotations'
+
+apply from: rootProject.file('gradle-mvn-push.gradle')
