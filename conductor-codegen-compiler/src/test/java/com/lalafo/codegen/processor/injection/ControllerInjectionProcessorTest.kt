@@ -32,7 +32,7 @@ private val GENERATED_TYPE = try {
 
 private const val GENERATED_ANNOTATION = """
 @Generated(
-    value = "ControllerInjectionProcessor",
+    value = "com.lalafo.codegen.processor.injection.ControllerInjectionProcessor",
     comments = "https://yallaclassifieds.atlassian.net/browse/DV-5886"
 )
 """
