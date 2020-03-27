@@ -32,7 +32,7 @@ private val GENERATED_TYPE = try {
 
 private const val GENERATED_ANNOTATION = """
 @Generated(
-    value = "ConductorBindingModuleDagger2Processor",
+    value = "com.lalafo.codegen.processor.dagger2.ConductorBindingModuleDagger2Processor",
     comments = "https://yallaclassifieds.atlassian.net/browse/DV-5886"
 )
 """
