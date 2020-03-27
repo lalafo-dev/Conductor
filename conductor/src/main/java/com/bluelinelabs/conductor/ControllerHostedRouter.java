@@ -144,13 +144,6 @@ public class ControllerHostedRouter extends Router {
     }
 
     @Override
-    public void invalidateOptionsMenu() {
-        if (hostController != null && hostController.getRouter() != null) {
-            hostController.getRouter().invalidateOptionsMenu();
-        }
-    }
-
-    @Override
     void startActivity(@NonNull Intent intent) {
         if (hostController != null && hostController.getRouter() != null) {
             hostController.getRouter().startActivity(intent);

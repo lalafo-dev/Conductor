@@ -29,9 +29,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -88,8 +85,6 @@ public abstract class Controller {
   boolean isBeingDestroyed;
   private boolean destroyed;
   private boolean attached;
-  private boolean hasOptionsMenu;
-  private boolean optionsMenuHidden;
   boolean viewIsAttached;
   boolean viewWasDetached;
   Router router;
@@ -821,66 +816,6 @@ public abstract class Controller {
     this.overriddenPopHandler = overriddenPopHandler;
   }
 
-  /**
-   * Registers/unregisters for participation in populating the options menu by receiving options-related
-   * callbacks, such as {@link #onCreateOptionsMenu(Menu, MenuInflater)}
-   *
-   * @param hasOptionsMenu If true, this controller's options menu callbacks will be called.
-   */
-  public final void setHasOptionsMenu(boolean hasOptionsMenu) {
-    boolean invalidate = attached && !optionsMenuHidden && this.hasOptionsMenu != hasOptionsMenu;
-
-    this.hasOptionsMenu = hasOptionsMenu;
-
-    if (invalidate) {
-      router.invalidateOptionsMenu();
-    }
-  }
-
-  /**
-   * Sets whether or not this controller's menu items should be visible. This is useful for hiding the
-   * controller's options menu items when its UI is hidden, and not just when it is detached from the
-   * window (the default).
-   *
-   * @param optionsMenuHidden Defaults to false. If true, this controller's menu items will not be shown.
-   */
-  public final void setOptionsMenuHidden(boolean optionsMenuHidden) {
-    boolean invalidate = attached && hasOptionsMenu && this.optionsMenuHidden != optionsMenuHidden;
-
-    this.optionsMenuHidden = optionsMenuHidden;
-
-    if (invalidate) {
-      router.invalidateOptionsMenu();
-    }
-  }
-
-  /**
-   * Adds option items to the host Activity's standard options menu. This will only be called if
-   * {@link #setHasOptionsMenu(boolean)} has been called.
-   *
-   * @param menu The menu into which your options should be placed.
-   * @param inflater The inflater that can be used to inflate your menu items.
-   */
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) { }
-
-  /**
-   * Prepare the screen's options menu to be displayed. This is called directly before showing the
-   * menu and can be used modify its contents.
-   *
-   * @param menu The menu that will be displayed
-   */
-  public void onPrepareOptionsMenu(@NonNull Menu menu) { }
-
-  /**
-   * Called when an option menu item has been selected by the user.
-   *
-   * @param item The selected item.
-   * @return True if this event has been consumed, false if it has not.
-   */
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    return false;
-  }
-
   final void setNeedsAttach(boolean needsAttach) {
     this.needsAttach = needsAttach;
   }
@@ -1041,10 +976,6 @@ public abstract class Controller {
 
     onAttach(view);
 
-    if (hasOptionsMenu && !optionsMenuHidden) {
-      router.invalidateOptionsMenu();
-    }
-
     listeners = new ArrayList<>(lifecycleListeners);
     for (LifecycleListener lifecycleListener : listeners) {
       lifecycleListener.postAttach(Controller.this, view);
@@ -1078,10 +1009,6 @@ public abstract class Controller {
 
       if (!awaitingParentAttach) {
         onDetach(view);
-      }
-
-      if (hasOptionsMenu && !optionsMenuHidden) {
-        router.invalidateOptionsMenu();
       }
 
       listeners = new ArrayList<>(lifecycleListeners);
@@ -1435,22 +1362,6 @@ public abstract class Controller {
         detach(view, false, false);
       }
     }
-  }
-
-  final void createOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    if (attached && hasOptionsMenu && !optionsMenuHidden) {
-      onCreateOptionsMenu(menu, inflater);
-    }
-  }
-
-  final void prepareOptionsMenu(@NonNull Menu menu) {
-    if (attached && hasOptionsMenu && !optionsMenuHidden) {
-      onPrepareOptionsMenu(menu);
-    }
-  }
-
-  final boolean optionsItemSelected(@NonNull MenuItem item) {
-    return attached && hasOptionsMenu && !optionsMenuHidden && onOptionsItemSelected(item);
   }
 
   final void setParentController(@Nullable Controller controller) {

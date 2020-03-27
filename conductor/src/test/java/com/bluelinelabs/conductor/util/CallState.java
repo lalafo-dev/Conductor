@@ -34,7 +34,6 @@ public class CallState implements Parcelable {
     public int restoreViewStateCalls;
     public int onActivityResultCalls;
     public int onRequestPermissionsResultCalls;
-    public int createOptionsMenuCalls;
     public int contextAvailableCalls;
     public int contextUnavailableCalls;
 
@@ -101,9 +100,6 @@ public class CallState implements Parcelable {
         if (onRequestPermissionsResultCalls != callState.onRequestPermissionsResultCalls) {
             return false;
         }
-        if (createOptionsMenuCalls != callState.createOptionsMenuCalls) {
-            return false;
-        }
         return restoreInstanceStateCalls == callState.restoreInstanceStateCalls;
     }
 
@@ -122,7 +118,6 @@ public class CallState implements Parcelable {
         result = 31 * result + restoreViewStateCalls;
         result = 31 * result + onActivityResultCalls;
         result = 31 * result + onRequestPermissionsResultCalls;
-        result = 31 * result + createOptionsMenuCalls;
         result = 31 * result + contextAvailableCalls;
         result = 31 * result + contextUnavailableCalls;
         return result;
@@ -144,7 +139,6 @@ public class CallState implements Parcelable {
           "\n    restoreViewStateCalls=" + restoreViewStateCalls +
           "\n    onActivityResultCalls=" + onActivityResultCalls +
           "\n    onRequestPermissionsResultCalls=" + onRequestPermissionsResultCalls +
-          "\n    createOptionsMenuCalls=" + createOptionsMenuCalls +
           "\n    contextAvailableCalls=" + contextAvailableCalls +
           "\n    contextUnavailableCalls=" + contextUnavailableCalls +
           "}\n";
@@ -168,7 +162,6 @@ public class CallState implements Parcelable {
         out.writeInt(restoreViewStateCalls);
         out.writeInt(onActivityResultCalls);
         out.writeInt(onRequestPermissionsResultCalls);
-        out.writeInt(createOptionsMenuCalls);
         out.writeInt(contextAvailableCalls);
         out.writeInt(contextUnavailableCalls);
     }
@@ -190,7 +183,6 @@ public class CallState implements Parcelable {
             state.restoreViewStateCalls = in.readInt();
             state.onActivityResultCalls = in.readInt();
             state.onRequestPermissionsResultCalls = in.readInt();
-            state.createOptionsMenuCalls = in.readInt();
             state.contextAvailableCalls = in.readInt();
             state.contextUnavailableCalls = in.readInt();
 
