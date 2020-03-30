@@ -32,6 +32,7 @@ import com.bluelinelabs.conductor.ControllerChangeType;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class TestController extends Controller {
 
@@ -46,7 +47,7 @@ public class TestController extends Controller {
 
     @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @Nullable Bundle savedViewState) {
         currentCallState.createViewCalls++;
         FrameLayout view = new AttachFakingFrameLayout(inflater.getContext());
         view.setId(VIEW_ID);

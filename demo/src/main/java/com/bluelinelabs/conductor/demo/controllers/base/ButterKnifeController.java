@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
 
+import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -22,9 +23,7 @@ public abstract class ButterKnifeController extends Controller {
 
     protected abstract View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container);
 
-    @NonNull
-    @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+    @NonNull @Override protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @Nullable Bundle savedViewState) {
         View view = inflateView(inflater, container);
         unbinder = ButterKnife.bind(this, view);
         onViewBound(view);

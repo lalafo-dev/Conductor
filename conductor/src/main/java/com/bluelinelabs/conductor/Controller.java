@@ -219,16 +219,17 @@ public abstract class Controller {
   /**
    * Called when the controller is ready to display its view. A valid view must be returned. The standard body
    * for this method will be {@code return inflater.inflate(R.layout.my_layout, container, false);}, plus
-   * any binding code.
+   * any binding and state restoration code.
    *
-   * @param inflater  The LayoutInflater that should be used to inflate views
-   * @param container The parent view that this Controller's view will eventually be attached to.
-   *                  This Controller's view should NOT be added in this method. It is simply passed in
-   *                  so that valid LayoutParams can be used during inflation.
+   * @param inflater       The LayoutInflater that should be used to inflate views
+   * @param container      The parent view that this Controller's view will eventually be attached to.
+   *                       This Controller's view should NOT be added in this method. It is simply passed in
+   *                       so that valid LayoutParams can be used during inflation.
+   * @param savedViewState A bundle for the view's state, which would have been created in {@link #onSaveViewState(View, Bundle)},
+   *                       or {@code null} if no saved state exists.
    */
   @NonNull
-  protected abstract View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container);
-
+  protected abstract View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @Nullable Bundle savedViewState);
   /**
    * Returns the {@link Router} object that can be used for pushing or popping other Controllers
    */
@@ -1144,7 +1145,7 @@ public abstract class Controller {
         lifecycleListener.preCreateView(this);
       }
 
-      view = onCreateView(LayoutInflater.from(parent.getContext()), parent);
+      view = onCreateView(LayoutInflater.from(parent.getContext()), parent, viewState == null ? null : viewState.getBundle(KEY_VIEW_STATE_BUNDLE));
       if (view == parent) {
         throw new IllegalStateException("Controller's onCreateView method returned the parent ViewGroup. Perhaps you forgot to pass false for LayoutInflater.inflate's attachToRoot parameter?");
       }

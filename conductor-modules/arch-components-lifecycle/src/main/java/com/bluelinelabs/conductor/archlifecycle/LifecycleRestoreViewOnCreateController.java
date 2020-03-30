@@ -22,10 +22,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerArgs;
-import com.bluelinelabs.conductor.RestoreViewOnCreateController;
 
-public abstract class LifecycleRestoreViewOnCreateController extends RestoreViewOnCreateController implements LifecycleOwner {
+public abstract class LifecycleRestoreViewOnCreateController extends Controller implements LifecycleOwner {
 
     private final ControllerLifecycleOwner mLifecycleOwner = new ControllerLifecycleOwner(this);
 

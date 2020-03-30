@@ -30,7 +30,7 @@ import com.bluelinelabs.conductor.changehandler.SimpleSwapChangeHandler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class DialogController extends RestoreViewOnCreateController
+public class DialogController extends Controller
   implements DialogInterface.OnShowListener,
   DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
 
