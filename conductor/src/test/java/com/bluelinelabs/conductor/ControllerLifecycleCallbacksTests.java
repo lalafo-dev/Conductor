@@ -552,6 +552,38 @@ public class ControllerLifecycleCallbacksTests {
         assertTrue(child.isAttached());
     }
 
+    @Test
+    public void testLifecycleWhenPopNonCurrentController() {
+        String controller1Tag = "controller1";
+        String controller2Tag = "controller2";
+        String controller3Tag = "controller3";
+
+        TestController controller1 = new TestController();
+        TestController controller2 = new TestController();
+        TestController controller3 = new TestController();
+
+        router.pushController(RouterTransaction.with(controller1)
+          .tag(controller1Tag));
+
+        router.pushController(RouterTransaction.with(controller2)
+          .tag(controller2Tag));
+
+        router.pushController(RouterTransaction.with(controller3)
+          .tag(controller3Tag));
+
+        router.popController(controller2);
+
+        assertEquals(1, controller2.currentCallState.attachCalls);
+        assertEquals(1, controller2.currentCallState.createViewCalls);
+        assertEquals(1, controller2.currentCallState.detachCalls);
+        assertEquals(1, controller2.currentCallState.destroyViewCalls);
+        assertEquals(1, controller2.currentCallState.destroyCalls);
+        assertEquals(1, controller2.currentCallState.contextAvailableCalls);
+        assertEquals(1, controller2.currentCallState.contextUnavailableCalls);
+        assertEquals(1, controller2.currentCallState.saveViewStateCalls);
+        assertEquals(0, controller2.currentCallState.restoreViewStateCalls);
+    }
+
     private MockChangeHandler getPushHandler(final CallState expectedCallState, final TestController controller) {
         return MockChangeHandler.listeningChangeHandler(new ChangeHandlerListener() {
             @Override
