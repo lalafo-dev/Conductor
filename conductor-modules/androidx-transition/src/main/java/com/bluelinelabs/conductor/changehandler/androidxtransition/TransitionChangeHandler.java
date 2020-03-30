@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package com.bluelinelabs.conductor.changehandler;
+package com.bluelinelabs.conductor.changehandler.androidxtransition;
 
-import android.annotation.TargetApi;
-import android.os.Build;
-import android.transition.Transition;
-import android.transition.Transition.TransitionListener;
-import android.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 /**
- * A base {@link ControllerChangeHandler} that facilitates using {@link android.transition.Transition}s to replace Controller Views.
+ * A base {@link ControllerChangeHandler} that facilitates using {@link Transition}s to replace Controller Views.
  */
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public abstract class TransitionChangeHandler extends ControllerChangeHandler {
 
     public interface OnTransitionPreparedListener {
@@ -84,10 +80,19 @@ public abstract class TransitionChangeHandler extends ControllerChangeHandler {
             return;
         }
 
-        final Transition transition = getTransition(container, from, to, isPush);
-        transition.addListener(new TransitionListener() {
+        final Runnable onTransitionNotStarted = new Runnable() {
             @Override
-            public void onTransitionStart(Transition transition) { }
+            public void run() {
+                changeListener.onChangeCompleted();
+            }
+        };
+
+        final Transition transition = getTransition(container, from, to, isPush);
+        transition.addListener(new Transition.TransitionListener() {
+            @Override
+            public void onTransitionStart(Transition transition) {
+                container.removeCallbacks(onTransitionNotStarted);
+            }
 
             @Override
             public void onTransitionEnd(Transition transition) {
@@ -114,6 +119,7 @@ public abstract class TransitionChangeHandler extends ControllerChangeHandler {
                 if (!canceled) {
                     TransitionManager.beginDelayedTransition(container, transition);
                     executePropertyChanges(container, from, to, transition, isPush);
+                    container.post(onTransitionNotStarted);
                 }
             }
         });

@@ -6,12 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.ColorRes;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.RouterTransaction;
@@ -19,12 +14,19 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler;
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler;
 import com.bluelinelabs.conductor.demo.R;
-import com.bluelinelabs.conductor.demo.changehandler.ArcFadeMoveChangeHandlerCompat;
+import com.bluelinelabs.conductor.demo.changehandler.ArcFadeMoveChangeHandler;
 import com.bluelinelabs.conductor.demo.changehandler.CircularRevealChangeHandlerCompat;
 import com.bluelinelabs.conductor.demo.changehandler.FlipChangeHandler;
 import com.bluelinelabs.conductor.demo.controllers.base.BaseController;
 import com.bluelinelabs.conductor.demo.util.BundleBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class TransitionDemoController extends BaseController {
 
@@ -125,9 +127,8 @@ public class TransitionDemoController extends BaseController {
             case FLIP:
                 return new FlipChangeHandler();
             case ARC_FADE:
-                return new ArcFadeMoveChangeHandlerCompat(from.getResources().getString(R.string.transition_tag_dot), from.getResources().getString(R.string.transition_tag_title));
             case ARC_FADE_RESET:
-                return new ArcFadeMoveChangeHandlerCompat(from.getResources().getString(R.string.transition_tag_dot), from.getResources().getString(R.string.transition_tag_title));
+                return new ArcFadeMoveChangeHandler(from.getResources().getString(R.string.transition_tag_dot), from.getResources().getString(R.string.transition_tag_title));
             case HORIZONTAL:
                 return new HorizontalChangeHandler();
             default:

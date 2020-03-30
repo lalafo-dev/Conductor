@@ -5,18 +5,19 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.transition.ChangeBounds;
-import android.transition.ChangeClipBounds;
-import android.transition.ChangeTransform;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionSet;
+import androidx.transition.ChangeBounds;
+import androidx.transition.ChangeClipBounds;
+import androidx.transition.ChangeTransform;
+import androidx.transition.Explode;
+import androidx.transition.Slide;
+import androidx.transition.Transition;
+import androidx.transition.TransitionSet;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelinelabs.conductor.changehandler.SharedElementTransitionChangeHandler;
+import com.bluelinelabs.conductor.changehandler.androidxtransition.SharedElementTransitionChangeHandler;
 
 import java.util.ArrayList;
 import java.util.List;

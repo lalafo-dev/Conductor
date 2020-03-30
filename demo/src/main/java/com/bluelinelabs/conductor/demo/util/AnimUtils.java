@@ -24,7 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
-import android.transition.Transition;
+import androidx.transition.Transition;
+
 import android.util.ArrayMap;
 import android.util.FloatProperty;
 import android.util.IntProperty;
@@ -349,27 +350,27 @@ public class AnimUtils {
         public abstract void onTransitionCompleted(Transition transition);
 
         @Override
-        public void onTransitionStart(Transition transition) {
+        public void onTransitionStart(@NonNull Transition transition) {
 
         }
 
         @Override
-        public void onTransitionEnd(Transition transition) {
+        public void onTransitionEnd(@NonNull Transition transition) {
             onTransitionCompleted(transition);
         }
 
         @Override
-        public void onTransitionCancel(Transition transition) {
+        public void onTransitionCancel(@NonNull Transition transition) {
             onTransitionCompleted(transition);
         }
 
         @Override
-        public void onTransitionPause(Transition transition) {
+        public void onTransitionPause(@NonNull Transition transition) {
 
         }
 
         @Override
-        public void onTransitionResume(Transition transition) {
+        public void onTransitionResume(@NonNull Transition transition) {
 
         }
     }

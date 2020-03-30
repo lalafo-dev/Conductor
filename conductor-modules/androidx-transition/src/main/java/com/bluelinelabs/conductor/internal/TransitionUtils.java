@@ -16,26 +16,24 @@
 
 package com.bluelinelabs.conductor.internal;
 
-import android.annotation.TargetApi;
 import android.graphics.Rect;
-import android.os.Build;
-import android.transition.Transition;
-import android.transition.TransitionSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.transition.Transition;
+import androidx.transition.TransitionSet;
 
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class TransitionUtils {
 
     public static void findNamedViews(@NonNull Map<String, View> namedViews, View view) {
         if (view.getVisibility() == View.VISIBLE) {
-            String transitionName = view.getTransitionName();
+            String transitionName = ViewCompat.getTransitionName(view);
             if (transitionName != null) {
                 namedViews.put(transitionName, view);
             }
@@ -53,7 +51,7 @@ public class TransitionUtils {
 
     @Nullable
     public static View findNamedView(@NonNull View view, @NonNull String transitionName) {
-        if (transitionName.equals(view.getTransitionName())) {
+        if (transitionName.equals(ViewCompat.getTransitionName(view))) {
             return view;
         }
 

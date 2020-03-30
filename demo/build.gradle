@@ -39,6 +39,7 @@ dependencies {
     implementation rootProject.ext.picasso
 
     implementation project(':conductor')
+    implementation project(':conductor-modules:androidx-transition')
 
     debugImplementation rootProject.ext.leakCanary
     releaseImplementation rootProject.ext.leakCanaryNoOp
