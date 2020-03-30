@@ -16,7 +16,7 @@ import androidx.transition.TransitionSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelinelabs.conductor.changehandler.androidxtransition.SharedElementTransitionChangeHandler;
+import com.bluelinelabs.conductor.support.changehandler.SharedElementTransitionChangeHandler;
 import com.bluelinelabs.conductor.internal.TransitionUtils;
 
 import java.util.ArrayList;

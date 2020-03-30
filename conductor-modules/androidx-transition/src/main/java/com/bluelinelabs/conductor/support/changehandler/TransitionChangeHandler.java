@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bluelinelabs.conductor.changehandler.androidxtransition;
+package com.bluelinelabs.conductor.support.changehandler;
 
 import android.view.View;
 import android.view.ViewGroup;
