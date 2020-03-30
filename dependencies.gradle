@@ -35,12 +35,6 @@ ext {
     supportAppCompat = "androidx.appcompat:appcompat:1.0.2"
     // supportAppCompatRes = "androidx.appcompat:appcompat-resources:1.1.0"
 
-    rxLifecycle2 = "com.trello.rxlifecycle2:rxlifecycle:$rxLifecycle2Version"
-    rxLifecycleAndroid2 = "com.trello.rxlifecycle2:rxlifecycle-android:$rxLifecycle2Version"
-
-    autodispose = "com.uber.autodispose:autodispose:$autodisposeVersion"
-    autodisposeLifecycle = "com.uber.autodispose:autodispose-lifecycle:$autodisposeVersion"
-
     archComponentsLifecycle = "androidx.lifecycle:lifecycle-runtime:$archComponentsVersion"
     archComponentsLiveDataCore = "androidx.lifecycle:lifecycle-livedata-core:$archComponentsVersion"
 
