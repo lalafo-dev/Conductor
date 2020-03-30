@@ -66,12 +66,12 @@ public class DialogController extends RestoreViewOnCreateController
   private static final String SAVED_CANCELABLE = "android:cancelable";
   private static final String SAVED_SHOWS_DIALOG = "android:showsDialog";
 
-  int style = STYLE_NORMAL;
-  int theme = 0;
-  boolean cancelable = true;
+  protected int style = STYLE_NORMAL;
+  protected int theme = 0;
+  protected boolean cancelable = true;
 
-  Dialog dialog;
-  boolean dismissed;
+  @Nullable private Dialog dialog;
+  protected boolean dismissed;
 
   @Nullable private View dialogView = null;
 
@@ -79,8 +79,19 @@ public class DialogController extends RestoreViewOnCreateController
     super();
   }
 
-  public DialogController(Bundle args) {
+  public DialogController(@Nullable Bundle args) {
     super(args);
+  }
+
+  /**
+   * Constructor that takes {@link ControllerArgs}  that need to be retained for {@link ControllerFactory}.
+   *
+   * @param controllerArgs any argument that have to be stored.
+   * @see ControllerArgs
+   * @see ControllerFactory#newInstance(ClassLoader, String, Object)
+   */
+  protected DialogController(@Nullable ControllerArgs controllerArgs) {
+    super(controllerArgs);
   }
 
   /**
@@ -107,7 +118,7 @@ public class DialogController extends RestoreViewOnCreateController
     }
   }
 
-  public Dialog getDialog() {
+  @Nullable public Dialog getDialog() {
     return dialog;
   }
 
@@ -145,7 +156,7 @@ public class DialogController extends RestoreViewOnCreateController
 
   }
 
-  public void setupWindow(@Nullable View view, Window window) {
+  public void setupWindow(@Nullable View view, @Nullable Window window) {
 
   }
 
@@ -195,18 +206,18 @@ public class DialogController extends RestoreViewOnCreateController
     }
   }
 
-  public Dialog onCreateDialog() {
+  @NonNull public Dialog onCreateDialog() {
     return new Dialog(getActivity(), theme);
   }
 
-  @Override public void onCancel(DialogInterface dialog) {
+  @Override public void onCancel(@NonNull DialogInterface dialog) {
   }
 
-  @Override public void onDismiss(DialogInterface dialog) {
+  @Override public void onDismiss(@NonNull DialogInterface dialog) {
     dismiss();
   }
 
-  @Override public void onShow(DialogInterface dialogInterface) {
+  @Override public void onShow(@NonNull DialogInterface dialogInterface) {
 
   }
 
