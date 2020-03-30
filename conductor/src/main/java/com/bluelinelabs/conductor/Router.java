@@ -82,8 +82,8 @@ public abstract class Router {
    * of the controller that called startActivityForResult is not known.
    *
    * @param requestCode The Activity's onActivityResult requestCode
-   * @param resultCode  The Activity's onActivityResult resultCode
-   * @param data        The Activity's onActivityResult data
+   * @param resultCode The Activity's onActivityResult resultCode
+   * @param data The Activity's onActivityResult data
    */
   public abstract void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
 
@@ -91,9 +91,9 @@ public abstract class Router {
    * This should be called by the host Activity when its onRequestPermissionsResult method is called. The call will be forwarded
    * to the {@link Controller} with the instanceId passed in.
    *
-   * @param instanceId   The instanceId of the Controller to which this result should be forwarded
-   * @param requestCode  The Activity's onRequestPermissionsResult requestCode
-   * @param permissions  The Activity's onRequestPermissionsResult permissions
+   * @param instanceId The instanceId of the Controller to which this result should be forwarded
+   * @param requestCode The Activity's onRequestPermissionsResult requestCode
+   * @param permissions The Activity's onRequestPermissionsResult permissions
    * @param grantResults The Activity's onRequestPermissionsResult grantResults
    */
   public void onRequestPermissionsResult(@NonNull String instanceId, int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -168,9 +168,7 @@ public abstract class Router {
       while (iterator.hasNext()) {
         RouterTransaction transaction = iterator.next();
         if (transaction.controller == controller) {
-          if (controller.isAttached()) {
-            trackDestroyingController(transaction);
-          }
+          trackDestroyingController(transaction);
           iterator.remove();
           removedTransaction = transaction;
         } else if (removedTransaction != null) {
@@ -197,7 +195,7 @@ public abstract class Router {
    * Pushes a new {@link Controller} to the backstack
    *
    * @param transaction The transaction detailing what should be pushed, including the {@link Controller},
-   *                    and its push and pop {@link ControllerChangeHandler}, and its tag.
+   * and its push and pop {@link ControllerChangeHandler}, and its tag.
    */
   @UiThread
   public void pushController(@NonNull RouterTransaction transaction) {
@@ -212,7 +210,7 @@ public abstract class Router {
    * Replaces this Router's top {@link Controller} with a new {@link Controller}
    *
    * @param transaction The transaction detailing what should be pushed, including the {@link Controller},
-   *                    and its push and pop {@link ControllerChangeHandler}, and its tag.
+   * and its push and pop {@link ControllerChangeHandler}, and its tag.
    */
   @SuppressWarnings("WeakerAccess")
   @UiThread
@@ -227,7 +225,8 @@ public abstract class Router {
     final ControllerChangeHandler handler = transaction.pushChangeHandler();
     if (topTransaction != null) {
       //noinspection ConstantConditions
-      final boolean oldHandlerRemovedViews = topTransaction.pushChangeHandler() == null || topTransaction.pushChangeHandler().removesFromViewOnPush();
+      final boolean oldHandlerRemovedViews = topTransaction.pushChangeHandler() == null || topTransaction.pushChangeHandler()
+        .removesFromViewOnPush();
       final boolean newHandlerRemovesViews = handler == null || handler.removesFromViewOnPush();
       if (!oldHandlerRemovedViews && newHandlerRemovesViews) {
         for (RouterTransaction visibleTransaction : getVisibleTransactions(backstack.iterator())) {
@@ -330,7 +329,7 @@ public abstract class Router {
   /**
    * Pops all {@link Controller}s until the {@link Controller} with the passed tag is at the top
    *
-   * @param tag           The tag being popped to
+   * @param tag The tag being popped to
    * @param changeHandler The {@link ControllerChangeHandler} to handle this transaction
    * @return Whether or not the {@link Controller} with the passed tag is now at the top
    */
@@ -352,7 +351,7 @@ public abstract class Router {
    * Sets the root Controller. If any {@link Controller}s are currently in the backstack, they will be removed.
    *
    * @param transaction The transaction detailing what should be pushed, including the {@link Controller},
-   *                    and its push and pop {@link ControllerChangeHandler}, and its tag.
+   * and its push and pop {@link ControllerChangeHandler}, and its tag.
    */
   @UiThread
   public void setRoot(@NonNull RouterTransaction transaction) {
@@ -420,7 +419,7 @@ public abstract class Router {
    * Sets the backstack, transitioning from the current top controller to the top of the new stack (if different)
    * using the passed {@link ControllerChangeHandler}
    *
-   * @param newBackstack  The new backstack
+   * @param newBackstack The new backstack
    * @param changeHandler An optional change handler to be used to handle the root view of transition
    */
   @SuppressWarnings("WeakerAccess")
@@ -466,7 +465,8 @@ public abstract class Router {
       List<RouterTransaction> reverseNewBackstack = new ArrayList<>(newBackstack);
       Collections.reverse(reverseNewBackstack);
       List<RouterTransaction> newVisibleTransactions = getVisibleTransactions(reverseNewBackstack.iterator());
-      boolean newRootRequiresPush = !(newVisibleTransactions.size() > 0 && oldTransactions.contains(newVisibleTransactions.get(0)));
+      boolean newRootRequiresPush = !(newVisibleTransactions.size() > 0 && oldTransactions.contains(newVisibleTransactions
+        .get(0)));
 
       boolean visibleTransactionsChanged = !backstacksAreEqual(newVisibleTransactions, oldVisibleTransactions);
       if (visibleTransactionsChanged) {
@@ -723,7 +723,7 @@ public abstract class Router {
 
   public void prepareForHostTabAttach() {
     RouterTransaction transaction = backstack.peek();
-    if (transaction != null){
+    if (transaction != null) {
       transaction.controller.setNeedsAttach(true);
       transaction.controller.prepareForHostDetach();
     }
@@ -839,8 +839,7 @@ public abstract class Router {
     }
   }
 
-  @NonNull
-  final List<Controller> getControllers() {
+  @NonNull final List<Controller> getControllers() {
     List<Controller> controllers = new ArrayList<>(backstack.size());
 
     Iterator<RouterTransaction> backstackIterator = backstack.reverseIterator();
@@ -879,7 +878,7 @@ public abstract class Router {
     performControllerChange(to, from, isPush, changeHandler);
   }
 
-  void performControllerChange(@Nullable RouterTransaction to, @Nullable RouterTransaction from, boolean isPush, @Nullable ControllerChangeHandler changeHandler) {
+  private void performControllerChange(@Nullable RouterTransaction to, @Nullable RouterTransaction from, boolean isPush, @Nullable ControllerChangeHandler changeHandler) {
     Controller toController = to != null ? to.controller : null;
     Controller fromController = from != null ? from.controller : null;
     boolean forceDetachDestroy = false;
@@ -887,23 +886,35 @@ public abstract class Router {
     if (to != null) {
       to.ensureValidIndex(getTransactionIndexer());
       setControllerRouter(toController);
+
     } else if (backstack.size() == 0 && !popsLastView) {
       // We're emptying out the backstack. Views get weird if you transition them out, so just no-op it. The host
       // Activity or controller should be handling this by finishing or at least hiding this view.
+      changeHandler = new NoOpControllerChangeHandler();
+      forceDetachDestroy = true;
+
+    } else if (!isPush && fromController != null && !fromController.isAttached()) {
+      // We're popping fromController from the middle of the backstack,
+      // need to do it immediately and destroy the controller
       changeHandler = new NoOpControllerChangeHandler();
       forceDetachDestroy = true;
     }
 
     performControllerChange(toController, fromController, isPush, changeHandler);
 
-    if (forceDetachDestroy && fromController != null && fromController.getView() != null) {
-      fromController.detach(fromController.getView(), true, false);
+    if (forceDetachDestroy && fromController != null) {
+      if (fromController.getView() != null) {
+        fromController.detach(fromController.getView(), true, false);
+      } else {
+        fromController.destroy();
+      }
     }
   }
 
   private void performControllerChange(@Nullable final Controller to, @Nullable final Controller from, final boolean isPush, @Nullable final ControllerChangeHandler changeHandler) {
     if (isPush && to != null && to.isDestroyed()) {
-      throw new IllegalStateException("Trying to push a controller that has already been destroyed. (" + to.getClass().getSimpleName() + ")");
+      throw new IllegalStateException("Trying to push a controller that has already been destroyed. (" + to.getClass()
+        .getSimpleName() + ")");
     }
 
     final ChangeTransaction transaction = new ChangeTransaction(to, from, isPush, container, changeHandler, new ArrayList<>(changeListeners));
