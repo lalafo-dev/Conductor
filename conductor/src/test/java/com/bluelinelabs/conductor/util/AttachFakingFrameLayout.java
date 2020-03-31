@@ -143,13 +143,9 @@ public class AttachFakingFrameLayout extends FrameLayout {
 
     public void runDelayedPosts() {
         for (Runnable runnable : delayedPosts) {
-            runnable.run();
+            post(runnable);
         }
 
-        clearDelayedPosts();
-    }
-
-    public void clearDelayedPosts() {
         delayedPosts.clear();
     }
 
