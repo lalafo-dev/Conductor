@@ -34,8 +34,9 @@ import android.os.Build;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
-import android.transition.Transition;
-import android.transition.TransitionValues;
+import androidx.transition.Transition;
+import androidx.transition.TransitionValues;
+
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;

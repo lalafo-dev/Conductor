@@ -5,13 +5,14 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionSet;
+import androidx.transition.Fade;
+import androidx.transition.Transition;
+import androidx.transition.TransitionSet;
+
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelinelabs.conductor.changehandler.TransitionChangeHandler;
+import com.bluelinelabs.conductor.support.changehandler.TransitionChangeHandler;
 import com.bluelinelabs.conductor.demo.R;
 import com.bluelinelabs.conductor.demo.changehandler.transitions.FabTransform;
 import com.bluelinelabs.conductor.demo.util.AnimUtils;

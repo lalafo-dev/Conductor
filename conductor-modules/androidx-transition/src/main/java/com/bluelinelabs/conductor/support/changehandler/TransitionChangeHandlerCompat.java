@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bluelinelabs.conductor.changehandler;
+package com.bluelinelabs.conductor.support.changehandler;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -20,8 +20,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Path;
 import android.os.Build;
-import android.transition.ArcMotion;
 import android.util.AttributeSet;
+
+import androidx.transition.ArcMotion;
 
 /**
  * A tweak to {@link ArcMotion} which slightly alters the path calculation. In the real world
