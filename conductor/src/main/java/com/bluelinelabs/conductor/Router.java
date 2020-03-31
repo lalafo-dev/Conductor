@@ -758,41 +758,6 @@ public abstract class Router {
     }
   }
 
-  public final void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    for (RouterTransaction transaction : backstack) {
-      transaction.controller.createOptionsMenu(menu, inflater);
-
-      for (Router childRouter : transaction.controller.getChildRouters()) {
-        childRouter.onCreateOptionsMenu(menu, inflater);
-      }
-    }
-  }
-
-  public final void onPrepareOptionsMenu(@NonNull Menu menu) {
-    for (RouterTransaction transaction : backstack) {
-      transaction.controller.prepareOptionsMenu(menu);
-
-      for (Router childRouter : transaction.controller.getChildRouters()) {
-        childRouter.onPrepareOptionsMenu(menu);
-      }
-    }
-  }
-
-  public final boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    for (RouterTransaction transaction : backstack) {
-      if (transaction.controller.optionsItemSelected(item)) {
-        return true;
-      }
-
-      for (Router childRouter : transaction.controller.getChildRouters()) {
-        if (childRouter.onOptionsItemSelected(item)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   private void popToTransaction(@NonNull RouterTransaction transaction, @Nullable ControllerChangeHandler changeHandler) {
     if (backstack.size() > 0) {
       RouterTransaction topTransaction = backstack.peek();
@@ -1072,7 +1037,6 @@ public abstract class Router {
     controller.onContextAvailable();
   }
 
-  abstract void invalidateOptionsMenu();
   abstract void startActivity(@NonNull Intent intent);
   abstract void startActivityForResult(@NonNull String instanceId, @NonNull Intent intent, int requestCode);
   abstract void startActivityForResult(@NonNull String instanceId, @NonNull Intent intent, int requestCode, @Nullable Bundle options);

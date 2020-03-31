@@ -99,12 +99,6 @@ public abstract class RouterPagerAdapter extends PagerAdapter {
             configureRouter(router, position);
         }
 
-        if (router != currentPrimaryRouter) {
-            for (RouterTransaction transaction : router.getBackstack()) {
-                transaction.controller().setOptionsMenuHidden(true);
-            }
-        }
-
         visibleRouters.put(position, router);
         return router;
     }
@@ -131,16 +125,6 @@ public abstract class RouterPagerAdapter extends PagerAdapter {
     public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         Router router = (Router)object;
         if (router != currentPrimaryRouter) {
-            if (currentPrimaryRouter != null) {
-                for (RouterTransaction transaction : currentPrimaryRouter.getBackstack()) {
-                    transaction.controller().setOptionsMenuHidden(true);
-                }
-            }
-            if (router != null) {
-                for (RouterTransaction transaction : router.getBackstack()) {
-                    transaction.controller().setOptionsMenuHidden(false);
-                }
-            }
             currentPrimaryRouter = router;
         }
     }

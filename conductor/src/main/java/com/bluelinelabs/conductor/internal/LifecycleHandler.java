@@ -274,35 +274,6 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        for (Router router : getRouters()) {
-            router.onCreateOptionsMenu(menu, inflater);
-        }
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        for (Router router : getRouters()) {
-            router.onPrepareOptionsMenu(menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        for (Router router : getRouters()) {
-            if (router.onOptionsItemSelected(item)) {
-                return true;
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void registerForActivityResult(@NonNull String instanceId, int requestCode) {
         activityRequestMap.put(requestCode, instanceId);
     }

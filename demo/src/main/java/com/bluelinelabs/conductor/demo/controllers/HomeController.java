@@ -4,21 +4,12 @@ import android.content.Intent;
 import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,6 +27,12 @@ import com.bluelinelabs.conductor.demo.changehandler.FabToDialogTransitionChange
 import com.bluelinelabs.conductor.demo.controllers.NavigationDemoController.DisplayUpMode;
 import com.bluelinelabs.conductor.demo.controllers.base.BaseController;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,7 +66,7 @@ public class HomeController extends BaseController {
     @BindView(R.id.fab) View fab;
 
     public HomeController() {
-        setHasOptionsMenu(true);
+
     }
 
     @NonNull
@@ -102,27 +99,10 @@ public class HomeController extends BaseController {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.home, menu);
-    }
-
-    @Override
     protected void onChangeStarted(@NonNull ControllerChangeHandler changeHandler, @NonNull ControllerChangeType changeType) {
-        setOptionsMenuHidden(!changeType.isEnter);
-
         if (changeType.isEnter) {
             setTitle();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.about) {
-            onFabClicked(false);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
