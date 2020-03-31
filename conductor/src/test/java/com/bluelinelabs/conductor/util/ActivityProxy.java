@@ -27,12 +27,18 @@ public class ActivityProxy {
 
     private ActivityController<TestActivity> activityController;
     private AttachFakingFrameLayout view;
+    private final @IdRes int containerId = 4;
 
     public ActivityProxy() {
+
         activityController = Robolectric.buildActivity(TestActivity.class);
 
-        @IdRes int containerId = 4;
         view = new AttachFakingFrameLayout(activityController.get());
+        view.setId(containerId);
+    }
+
+    public void setView(AttachFakingFrameLayout view) {
+        this.view = view;
         view.setId(containerId);
     }
 

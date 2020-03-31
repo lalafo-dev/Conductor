@@ -730,6 +730,8 @@ public abstract class Router {
   }
 
   public void prepareForHostDetach() {
+    pendingControllerChanges.clear(); // rely on backstack based restoration in rebindIfNeeded
+
     for (RouterTransaction transaction : backstack) {
       if (ControllerChangeHandler.completeHandlerImmediately(transaction.controller.getInstanceId())) {
         transaction.controller.setNeedsAttach(true);
@@ -887,11 +889,17 @@ public abstract class Router {
     if (pendingControllerChanges.size() > 0) {
       // If we already have changes queued up (awaiting full container attach), queue this one up as well so they don't happen
       // out of order.
+      if (to != null) {
+        to.setNeedsAttach(true);
+      }
       pendingControllerChanges.add(transaction);
     } else if (from != null && (changeHandler == null || changeHandler.removesFromViewOnPush()) && !containerFullyAttached) {
       // If the change handler will remove the from view, we have to make sure the container is fully attached first so we avoid NPEs
       // within ViewGroup (details on issue #287). Post this to the container to ensure the attach is complete before we try to remove
       // anything.
+      if (to != null) {
+        to.setNeedsAttach(true);
+      }
       pendingControllerChanges.add(transaction);
       container.post(new Runnable() {
         @Override

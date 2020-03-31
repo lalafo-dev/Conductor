@@ -26,6 +26,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import java.io.FileDescriptor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AttachFakingFrameLayout extends FrameLayout {
 
@@ -77,6 +79,8 @@ public class AttachFakingFrameLayout extends FrameLayout {
     };
 
     private boolean reportAttached;
+    private boolean needDelayPost;
+    private List<Runnable> delayedPosts = new ArrayList<>();
 
     public AttachFakingFrameLayout(Context context) {
         super(context);
@@ -126,4 +130,30 @@ public class AttachFakingFrameLayout extends FrameLayout {
         super.onViewRemoved(child);
     }
 
+    @Override
+    public boolean post(Runnable action) {
+        if (needDelayPost) {
+            delayedPosts.add(action);
+        } else {
+            return super.post(action);
+        }
+
+        return true;
+    }
+
+    public void runDelayedPosts() {
+        for (Runnable runnable : delayedPosts) {
+            post(runnable);
+        }
+
+        delayedPosts.clear();
+    }
+
+    public void setNeedDelayPost(boolean needDelayPost) {
+        this.needDelayPost = needDelayPost;
+
+        if (!this.needDelayPost && delayedPosts.size() > 0) {
+            runDelayedPosts();
+        }
+    }
 }
