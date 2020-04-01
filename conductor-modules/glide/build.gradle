@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
-    api rootProject.ext.glide
-    api rootProject.ext.supportAnnotations
-    api project(':conductor')
+    implementation rootProject.ext.glide
+    implementation rootProject.ext.supportAnnotations
+    implementation project(':conductor')
 }
 
 ext.artifactId = 'conductor-glide'

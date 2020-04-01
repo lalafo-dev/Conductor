@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bluelinelabs.conductor;
+package com.lalafo.conductor.glide;
 
 import com.bumptech.glide.manager.Lifecycle;
 import com.bumptech.glide.manager.LifecycleListener;

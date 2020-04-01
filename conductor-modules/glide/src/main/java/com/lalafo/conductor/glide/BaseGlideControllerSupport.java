@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.bluelinelabs.conductor;
+package com.lalafo.conductor.glide;
 
 import android.view.View;
 
+import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.Router;
+import com.bluelinelabs.conductor.RouterTransaction;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.manager.RequestManagerTreeNode;
 
