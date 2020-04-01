@@ -161,7 +161,118 @@ So you will be able to pass the arguments manually while creating the new transa
 **NOTE**: the passed arguments are not saved in the `ControllerTransaction`. They do not survive after the process death. Keep this gotcha in mind, because that's when `conductor-codegen` is useful.
 
 ### Dagger2 Codegen
-***Work on docs in progress***
+If you are using [Dagger2](https://github.com/google/dagger) you are probably using Daggers `MemebersInjector` pattern, that's looks like this in Java:
+```java
+public class HomeController extends Controller {
+  
+  @Inject
+  public String injectedData;
+  
+  // Code...
+}
+```
+and even worse in Kotlin:
+```kotlin
+class HomeController: Controller() {
+
+    @Inject
+    lateinit var injectedData: String
+    
+    // Code...
+}
+```
+and this still requires to inject Controllers manually using components:
+```java
+// Inject things to controller
+Component component = ...; // Getting your dagger component
+component.inject(this);
+// And only after you could use injected objects
+```
+Ideally we want to inject things using the constructor injection. This gives us some goodies:
+* All the data is present in the object at any moment
+* No need to care about manual injection
+* Clean looking class without public and late initialization or nullable fields.
+
+As you have `ControllerFactory` you could it in 3 ways.
+1. Write your own `ControllerFactory` implementation and maintain it, using `@Inject` on Controllers constructors.
+2. Use [`AssistedInject`](https://github.com/square/AssistedInject) to pass the data to Controllers mixing injections and params data. It's a good approach but you still will got to manage the saving of passed controller params over constructor.
+3. Use `conductor-codegen` package from our repo in couple with `ControllerArgs`.
+
+`conductor-codegen` is highly inspired with [AssistedInject](https://github.com/square/AssistedInject) from Square. So if you used AssistedInject before you will probably get it right fast.
+#### Case 1: Controller constructor injection without arguments
+**1. Create controller with Injection Constructor**
+```kotlin
+class HomeController @InjectController constructor(
+    private val injectedData: String
+): Controller() {
+    // More code ...
+}
+```
+**2. Create your `AppControllerFactory`**
+```kotlin
+@ConductorFactory
+open class AppControllerFactory: ControllerFactory()
+```
+**NOTE**: Make sure to make it non final.
+
+**3. Declare you Dagger2 module for `conductor-codegen` bindings**
+```java
+@ConductorBindingModule
+@Module(includes = ConductorModule_ConductorBindingModule.class)
+public abstract class ConductorModule {}
+```
+**NOTE**: Make sure to add `includes = YOURCLASSNAME_ConductorBindingModule.class` to `@Module` so the Dagger would be able to pick up all the bindings.
+
+**4. Register your `AppControllerFactory` to Conductor in you Activity or App class**
+```kotlin
+class MainActivity: AppCompatActivity() {
+    @Inject lateinit var appControllerFactory: AppControllerFactory
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Inject all the objects 
+        // ...
+        Conductor.setControllerFactory(appControllerFactory)
+        // Execute yout transactions safely after that
+    }
+}
+```
+**5. All done!** Just make sure to create transactions using `RouterTransaction.with(ControllerClassName.class, null)` method.
+#### Case 2: Controller constructor injection with `ControllerArgs`
+It's nice to have constructor injection. You know what is nicer? Having your arguments in the constructor too. Now you are bundling your arguments to `Bundle args` so they survive the Controller recreation. But this is kinda messy, and you probably already know why. So we decided to move further and to add `ControllerArgs`.
+
+`ControllerArgs` is an interface, that extends `Parcelable`. Controller has public constructor, that takes your implementation of `ControllerArgs` and stores it internally, so the args are saved between Controller recreation.
+
+And don't be scared about the `Parcelable` and all this stuff you have to write to make class a Parcelable one. If you are using Kotlin, you already have [`@Parcelize`](https://kotlinlang.org/docs/tutorials/android-plugin.html#parcelable-implementations-generator), or if you stick to Java, you could use just as useful [AutoValue: Parcel](https://github.com/rharter/auto-value-parcel) extensions.
+
+**1. Create your args**
+```kotlin
+@Parcelize
+data class StringArgs(val value: String): ControllerArgs
+```
+**2. Add them to the Controller injection constructor**
+```kotlin
+class HomeController @InjectController constructor(
+    @ControllerBundle private val args: StringArgs,
+    private val injectedMeme: Thermosiphon
+) : Controller(args) {
+    // Blah blah blah ...
+}
+```
+**3. Make sure to setup factory and module**  
+Just make sure to execute all steps in **Case 1** from **2** to **4**.
+
+**4. Put arguments to your transaction**
+```
+RouterTransaction.with(HomeController.class, new StringArgs("Subscribe for r/mAndroidDev on Reddit!");
+```
+**5. Done!** Now you have **both** constructor injection and constructor arguments!
+
+#### Notes
+1. **Only one or none** `ControllerArgs` implementing classes are allowed in the controller injection constructor for now.
+2. `@ControllerBundle` is an optional annotation. The codegen will detect the your "controller bundle" without it, but it's bad for the code style. Just add it so you recognize them fast in the constuctor.
+3. You can add `@InjectController.Factory` to your Controller, if you want to in analogue to `AssistedInject` library. But it's optional, so you better add them if you really need one.
+4. Conductor already bundled with some lint rules for the `codegen` that are experimental and not really stable or tested for now. So if you find the bugs for the lint - report it to us.
+5. Only one `@ConductorFactory` annotated factory and one `@ConductorBindingModule` annotated Dagger module are allowed per project for now.
 
 ### Retain View Modes
 `setRetainViewMode` can be called on a `Controller` with one of two values: `RELEASE_DETACH`, which will release the `Controller`'s view as soon as it is detached from the screen (saves memory), or `RETAIN_DETACH`, which will ensure that a `Controller` holds on to its view, even if it's not currently shown on the screen (good for views that are expensive to re-create).
