@@ -63,3 +63,10 @@ ext.artifactId = 'conductor'
 
 apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('gradle-mvn-push.gradle')
+
+afterEvaluate {
+    generateReleaseBuildConfig.enabled = false
+    generateDebugBuildConfig.enabled = false
+    generateReleaseResValues.enabled = false
+    generateDebugResValues.enabled = false
+}

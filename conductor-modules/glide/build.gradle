@@ -43,3 +43,11 @@ dependencies {
 }
 
 ext.artifactId = 'conductor-glide'
+
+afterEvaluate {
+    generateReleaseBuildConfig.enabled = false
+    generateDebugBuildConfig.enabled = false
+    generateReleaseResValues.enabled = false
+    generateDebugResValues.enabled = false
+}
+
