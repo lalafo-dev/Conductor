@@ -11,7 +11,7 @@ ext {
     daggerVersion = '2.26'
     okHttpVersion = '3.12.8'
     retrofitVersion = '2.6.3'
-    glideVersion = '4.8.0'
+    glideVersion = '4.11.0'
     moshiVersion = '1.9.2'
     rxLifecycle2Version = '2.2.1'
     autodisposeVersion = '1.4.0'

@@ -30,13 +30,10 @@ annotationProcessor 'com.lalafo.conductor:conductor-codegen-compiler:1.0.0-dev02
 // Or in case of using Kotlin
 kapt 'com.lalafo.conductor:conductor-codegen-compiler:1.0.0-dev02'
 
-// If you want RxJava2 lifecycle support:
-implementation 'com.lalafo.conductor:conductor-rxlifecycle2:1.0.0-dev02'
-
-// If you want RxJava2 Autodispose support:
-implementation 'com.lalafo.conductor:conductor-autodispose:1.0.0-dev02'
-
 // If you want Controllers that are Lifecycle-aware (architecture components):
+implementation 'com.lalafo.conductor:conductor-archlifecycle:1.0.0-dev02'
+
+// If you want Glide support Controller lifecycle:
 implementation 'com.lalafo.conductor:conductor-archlifecycle:1.0.0-dev02'
 ```
 
@@ -173,8 +170,45 @@ So you will be able to pass the arguments manually while creating the new transa
 ### Child Routers & Controllers
 `getChildRouter` can be called on a `Controller` in order to get a nested `Router` into which child `Controller`s can be pushed. This enables creating advanced layouts, such as Master/Detail.
 
-### RxJava 2 Lifecycle
-If the AutoDispose dependency has been added, there is a `ControllerScopeProvider` available that can be used along with the standard [AutoDispose library](https://github.com/uber/AutoDispose).
+### Glide Lifecycle
+If the Glide dependency has been added, you need to setup Glide:
+```java
+public class GlideControllerSupport extends BaseGlideControllerSupport<GlideRequests> {
+
+  public GlideControllerSupport(Controller controller) {
+    super(controller);
+  }
+
+  @Override protected GlideRequests getGlideRequest(@NonNull ControllerLifecycle lifecycle, RequestManagerTreeNode requestManagerTreeNode) {
+    Context context = App.getInstance().getApplicationContext();
+    return new GlideRequests(Glide.get(context), lifecycle, requestManagerTreeNode, context);
+  }
+}
+```
+
+```java
+public class HomeController extends Controller implements GlideProvider<GlideRequests>{
+
+  private GlideControllerSupport glideControllerSupport = new GlideControllerSupport(this);
+
+  @Override public GlideRequests getGlide() {
+    return glideControllerSupport.getGlide();
+  }
+
+  @NonNull @Override protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+
+    getGlide().load("url")
+      .centerCrop()
+      .into(new SimpleTarget<Drawable>() {
+        @Override public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+
+        }
+      });
+
+    return null;
+  }
+}
+```
 
 ## License
 ```
