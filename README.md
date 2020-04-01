@@ -20,25 +20,27 @@ Conductor is architecture-agnostic and does not try to force any design decision
 ## Installation
 
 ```gradle
-implementation 'com.lalafo.conductor:conductor:1.0.0-dev02'
+def conductorVersion = '1.0.0-rc01'
+
+implementation "com.lalafo.conductor:conductor:$conductorVersion"
 
 // If you want Conductor Dagger2 codegen support add
 // Annotations:
-implementation 'com.lalafo.conductor:conductor-codegen-annotations:1.0.0-dev02'
+implementation "com.lalafo.conductor:conductor-codegen-annotations:$conductorVersion"
 // Annotations processor:
-annotationProcessor 'com.lalafo.conductor:conductor-codegen-compiler:1.0.0-dev02'
+annotationProcessor "com.lalafo.conductor:conductor-codegen-compiler:$conductorVersion"
 // Or in case of using Kotlin
-kapt 'com.lalafo.conductor:conductor-codegen-compiler:1.0.0-dev02'
+kapt "com.lalafo.conductor:conductor-codegen-compiler:$conductorVersion"
 
 // If you want Controllers that are Lifecycle-aware (architecture components):
-implementation 'com.lalafo.conductor:conductor-archlifecycle:1.0.0-dev02'
+implementation "com.lalafo.conductor:conductor-archlifecycle:$conductorVersion"
 
 // If you want Glide support Controller lifecycle:
-implementation 'com.lalafo.conductor:conductor-archlifecycle:1.0.0-dev02'
+implementation "com.lalafo.conductor:conductor-glide:$conductorVersion"
 ```
 
 **SNAPSHOT builds**  
-Just use `1.0.0-dev02-SNAPSHOT` as your version number in any of the dependencies above and add the url to the snapshot repository:
+Just use `1.0.0-rc01-SNAPSHOT` as your version number in any of the dependencies above and add the url to the snapshot repository:
 
 ```gradle
 allprojects {

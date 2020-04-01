@@ -26,3 +26,11 @@ dependencies {
 }
 
 ext.artifactId = 'conductor-arch-components-lifecycle'
+
+afterEvaluate {
+    generateReleaseBuildConfig.enabled = false
+    generateDebugBuildConfig.enabled = false
+    generateReleaseResValues.enabled = false
+    generateDebugResValues.enabled = false
+}
+

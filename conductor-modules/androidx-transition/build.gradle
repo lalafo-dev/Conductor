@@ -42,3 +42,11 @@ dependencies {
 }
 
 ext.artifactId = 'conductor-androidx-transition'
+
+afterEvaluate {
+    generateReleaseBuildConfig.enabled = false
+    generateDebugBuildConfig.enabled = false
+    generateReleaseResValues.enabled = false
+    generateDebugResValues.enabled = false
+}
+
