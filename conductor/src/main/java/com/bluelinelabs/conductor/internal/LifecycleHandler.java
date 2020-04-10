@@ -19,7 +19,6 @@ package com.bluelinelabs.conductor.internal;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application.ActivityLifecycleCallbacks;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -29,9 +28,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.SparseArray;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.ActivityHostedRouter;
@@ -44,6 +40,8 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 public class LifecycleHandler extends Fragment implements ActivityLifecycleCallbacks {
 
@@ -73,10 +71,10 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Nullable
-    private static LifecycleHandler findInActivity(@NonNull Activity activity) {
+    private static LifecycleHandler findInActivity(@NonNull FragmentActivity activity) {
         LifecycleHandler lifecycleHandler = activeLifecycleHandlers.get(activity);
         if (lifecycleHandler == null) {
-            lifecycleHandler = (LifecycleHandler)activity.getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+            lifecycleHandler = (LifecycleHandler)activity.getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         }
         if (lifecycleHandler != null) {
             lifecycleHandler.registerActivityListener(activity);
@@ -85,11 +83,11 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @NonNull
-    public static LifecycleHandler install(@NonNull Activity activity) {
+    public static LifecycleHandler install(@NonNull FragmentActivity activity) {
         LifecycleHandler lifecycleHandler = findInActivity(activity);
         if (lifecycleHandler == null) {
             lifecycleHandler = new LifecycleHandler();
-            activity.getFragmentManager().beginTransaction().add(lifecycleHandler, FRAGMENT_TAG).commit();
+            activity.getSupportFragmentManager().beginTransaction().add(lifecycleHandler, FRAGMENT_TAG).commit();
         }
         lifecycleHandler.registerActivityListener(activity);
         return lifecycleHandler;
@@ -161,7 +159,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(KEY_PERMISSION_REQUEST_CODES, new StringSparseArrayParceler(permissionRequestMap));
@@ -169,7 +167,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
         outState.putParcelableArrayList(KEY_PENDING_PERMISSION_REQUESTS, pendingPermissionRequests);
     }
 
-    @Override public void onConfigurationChanged(Configuration newConfig) {
+    @Override public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
         for (Router router : getRouters()) {
@@ -191,14 +189,14 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         destroyed = false;
         setAttached();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         destroyed = false;
         setAttached();
@@ -298,8 +296,8 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
 
     @TargetApi(Build.VERSION_CODES.N)
     public void startIntentSenderForResult(@NonNull String instanceId, @NonNull IntentSender intent, int requestCode,
-                                           @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
-                                           @Nullable Bundle options) throws IntentSender.SendIntentException {
+      @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+      @Nullable Bundle options) throws IntentSender.SendIntentException {
         registerForActivityResult(instanceId, requestCode);
         startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags, options);
     }
@@ -315,8 +313,8 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (this.activity == null && findInActivity(activity) == LifecycleHandler.this) {
+    public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
+        if (this.activity == null && findInActivity((FragmentActivity) activity) == LifecycleHandler.this) {
             this.activity = activity;
 
             for (ActivityHostedRouter router : new ArrayList<>(routerMap.values())) {
@@ -326,7 +324,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivityStarted(Activity activity) {
+    public void onActivityStarted(@NonNull Activity activity) {
         if (this.activity == activity) {
             hasPreparedForHostDetach = false;
 
@@ -337,7 +335,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivityResumed(Activity activity) {
+    public void onActivityResumed(@NonNull Activity activity) {
         if (this.activity == activity) {
             for (Router router : getRouters()) {
                 router.onActivityResumed(activity);
@@ -346,7 +344,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void onActivityPaused(@NonNull Activity activity) {
         if (this.activity == activity) {
             for (Router router : getRouters()) {
                 router.onActivityPaused(activity);
@@ -355,7 +353,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivityStopped(Activity activity) {
+    public void onActivityStopped(@NonNull Activity activity) {
         if (this.activity == activity) {
             prepareForHostDetachIfNeeded();
 
@@ -366,7 +364,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
         if (this.activity == activity) {
             prepareForHostDetachIfNeeded();
 
@@ -379,7 +377,7 @@ public class LifecycleHandler extends Fragment implements ActivityLifecycleCallb
     }
 
     @Override
-    public void onActivityDestroyed(Activity activity) {
+    public void onActivityDestroyed(@NonNull Activity activity) {
         activeLifecycleHandlers.remove(activity);
     }
 

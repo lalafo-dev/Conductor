@@ -18,6 +18,9 @@ package com.bluelinelabs.conductor.support;
 
 import android.app.Activity;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+
 import android.util.SparseArray;
 import android.widget.FrameLayout;
 
@@ -35,8 +38,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
-import androidx.annotation.NonNull;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
@@ -47,7 +48,7 @@ public class StateSaveTests {
     private RouterPagerAdapter pagerAdapter;
 
     public void createActivityController(Bundle savedInstanceState) {
-        ActivityController<Activity> activityController = Robolectric.buildActivity(Activity.class).create().start().resume();
+        ActivityController<FragmentActivity> activityController = Robolectric.buildActivity(FragmentActivity.class).create().start().resume();
         Router router = Conductor.attachRouter(activityController.get(), new FrameLayout(activityController.get()), savedInstanceState);
         TestController controller = new TestController();
         router.setRoot(RouterTransaction.with(controller));
