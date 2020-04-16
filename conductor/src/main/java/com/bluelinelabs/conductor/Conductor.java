@@ -16,7 +16,6 @@
 
 package com.bluelinelabs.conductor;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
@@ -26,6 +25,7 @@ import com.bluelinelabs.conductor.internal.ThreadUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Point of initial interaction with Conductor. Used to attach a {@link Router} to your Activity.
@@ -50,7 +50,7 @@ public final class Conductor {
      * @return A fully configured {@link Router} instance for use with this Activity/ViewGroup pair.
      */
     @NonNull @UiThread
-    public static Router attachRouter(@NonNull Activity activity, @NonNull ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public static Router attachRouter(@NonNull FragmentActivity activity, @NonNull ViewGroup container, @Nullable Bundle savedInstanceState) {
         ThreadUtils.ensureMainThread();
 
         LifecycleHandler lifecycleHandler = LifecycleHandler.install(activity);
@@ -70,11 +70,6 @@ public final class Conductor {
     @UiThread
     public static void setControllerFactory(@NonNull ControllerFactory factory) {
         ThreadUtils.ensureMainThread();
-
-        if (factory == null) {
-            return;
-        }
-
         controllerFactory = factory;
     }
 }
