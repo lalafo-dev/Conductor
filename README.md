@@ -20,7 +20,7 @@ Conductor is architecture-agnostic and does not try to force any design decision
 ## Installation
 
 ```gradle
-def conductorVersion = '1.0.0-rc01'
+def conductorVersion = '1.0.0'
 
 implementation "com.lalafo.conductor:conductor:$conductorVersion"
 
@@ -40,7 +40,7 @@ implementation "com.lalafo.conductor:conductor-glide:$conductorVersion"
 ```
 
 **SNAPSHOT builds**  
-Just use `1.0.0-rc01-SNAPSHOT` as your version number in any of the dependencies above and add the url to the snapshot repository:
+Just use `1.0.0-SNAPSHOT` as your version number in any of the dependencies above and add the url to the snapshot repository:
 
 ```gradle
 allprojects {
